@@ -1,115 +1,110 @@
-.\" perpstat.8
-.\" wcm, 2009.11.25 - 2011.02.01
-.\" ===
-.TH perpstat 8 "January 2013" "perp-2.07" "persistent process supervision"
-.SH NAME
-perpstat \- display current status of
-.BR perpd (8)
-services
-.SH SYNOPSIS
-.B perpstat [\-hV] [\-b
-.I basedir
-.B ]
-.I sv
-.BI [ sv
-.B ...]
-.SH DESCRIPTION
-.B perpstat
+.Dd October 8, 2018
+.Dt PERPSTAT 8
+.Os
+.Sh NAME
+.Nm perpstat
+.Nd display current status of perpd services
+.Sh SYNOPSIS
+.Nm
+.Op Fl hV
+.Op Fl b Ar basedir
+.Ar sv ...
+.Sh DESCRIPTION
+.Nm
 is used to report the current service status of each
-.I sv
+.Ar sv
 argument monitored by an active
-.BR perpd (8)
+.Xr perpd 8
 supervisor.
-.PP
+.Pp
 Each argument
-.I sv
+.Ar sv
 should be a service definition directory running under the supervision of
-.BR perpd (8).
-.B perpstat
+.Xr perpd 8 .
+.Nm
 will look for
-.I sv
+.Ar sv
 in the
-.I basedir
+.Ar basedir
 directory specified with the
-.B \-b
+.Fl b
 option,
 or as set in the
-.B PERP_BASE
+.Ev PERP_BASE
 environmental variable,
 or in the current directory if neither of the previous is given.
-.PP
+.Pp
 For each argument
-.I sv
+.Ar sv
 found in the base directory,
-.B perpstat
+.Nm
 queries the
-.BR perpd (8)
+.Xr perpd 8
 supervisor for its runtime status.
 It then prints information regarding the
-.BR perpd (8)
+.Xr perpd 8
 supervisor itself,
 the main service,
-and its log service (if any),
+and its log service
+.Pq if any,
 one line for each process.
-.SH OPTIONS
-.TP
-.B \-b basedir
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl b Ar basedir
 Base directory.
 Sets the base directory containing the service definitions named by the
-.I sv
+.Ar sv
 arguments.
 If not set,
-.B perpstat
-will use the value set in the variable PERP_BASE,
+.Nm
+will use the value set in the variable
+.Ev PERP_BASE ,
 or the current directory if neither of these are defined.
 On a normal system,
 the base directory will be
-.IR /etc/perp .
-.TP
-.B \-h
+.Pa /etc/perp .
+.It Fl h
 Help.
 Print a brief usage message to stderr and exit.
-.TP
-.B \-V
+.It Fl V
 Version.
 Print the version number to stderr and exit.
-.SH EXIT STATUS
-.B perpstat
+.El
+.Sh EXIT STATUS
+.Nm
 exits with the following values:
-.TP
-0
+.Pp
+.Bl -tag -width indent -offset indent -compact
+.It 0
 Success.
 The
-.B perpstat
-command successfully processed and reported on each 
-.I sv
+.Nm
+command successfully processed and reported on each
+.Ar sv
 argument given.
 Note that this status is returned even if certain problems were found and reported
 for individual
-.I sv
+.Ar sv
 arguments.
-.TP
-100
+.It 100
 Usage error.
 For unknown options or missing arguments.
 Returns 100 and prints a brief diagnostic message to stderr on exit.
-.TP
-111
+.It 111
 System error.
 For system, permission, configuration, and/or resource failures.
 Returns 111 and prints a brief diagnostic message to stderr on exit.
-.SH AUTHOR
-Wayne Marshall, http://b0llix.net/perp/
-.SH SEE ALSO
-.nh
-.BR perp_intro (8),
-.BR perpboot (8),
-.BR perpctl (8),
-.BR perpd (8),
-.BR perpetrate (5),
-.BR perphup (8),
-.BR perpls (8),
-.BR perpok (8),
-.BR sissylog (8),
-.BR tinylog (8)
-.\" EOF perpstat.8
+.El
+.Sh SEE ALSO
+.Xr perp_intro 8 ,
+.Xr perpboot 8 ,
+.Xr perpctl 8 ,
+.Xr perpd 8 ,
+.Xr perpetrate 5 ,
+.Xr perphup 8 ,
+.Xr perpls 8 ,
+.Xr perpok 8 ,
+.Xr sissylog 8 ,
+.Xr tinylog 8
+.Sh AUTHORS
+Wayne Marshall
