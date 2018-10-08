@@ -1,22 +1,22 @@
-.\" perp_intro.8
-.\" wcm, 2009.12.04 - 2013.01.09
-.\" ===
-.TH perp_intro 8 "January 2013" "perp-2.07" "persistent process supervision"
-.SH NAME
-perp_intro \- introduction to the perp service management framework
-.SH SYNOPSIS
-.I /etc/perp
-.SH DESCRIPTION
-.SS Purpose
+.Dd October 6, 2018
+.Dt PERP_INTRO 8
+.Os
+.Sh NAME
+.Nm perp_intro
+.Nd introduction to the perp service management framework
+.Sh SYNOPSIS
+.Ar /etc/perp
+.Sh DESCRIPTION
+.Ss Purpose
 The
-.B perp
+.Ar perp
 service management framework provides a set of daemons and utilities to
 start, monitor, log, and control a collection of persistent processes.
 This document provides a basic overview of the system.
 Further details may be found in the manual pages as referenced.
-.SS Terms
-.TP
-``persistent process''
+.Ss Terms
+.Bl -tag -width Ds
+.It Dq persistent process
 Any long-running program,
 normally intended to start at system boot
 and continue running until system shutdown.
@@ -25,135 +25,131 @@ A persistent process will normally provide some essential system service
 on-demand.
 Programs that service email, domain name queries, and http requests
 are examples of services that are normally run as persistent processes.
-.TP
-``service definition''
+.It Dq service definition
 A service definition is
 the set of
-.BR perpetrate (5)
+.Xr perpetrate 5
 runscripts and associated files that tell the
-.BR perpd (8)
+.Xr perpd 8
 program how to start, run, and optionally log a service.
 The base directory for a collection of service definitions is normally
-.IR /etc/perp .
-The service definition for a particular service ``foo''
+.Pa /etc/perp .
+The service definition for a particular service
+.Dq foo
 will then be installed in the service definition directory
-.IR /etc/perp/foo .
-.TP
-``service activation''
+.Pa /etc/perp/foo .
+.It Dq service activation
 A service definition may be installed and configured as summarized above,
 but does not become operative until it is specifically activated.
 An activated service is then recognized by the
-.BR perpd (8)
+.Xr perpd 8
 scanner.
 Service activation is controlled by setting the
-.BR sticky (7)
+.Xr sticky 7
 bit on the service definition directory.
 Setting the sticky bit activates the service,
 unsetting the sticky bit deactivates the service.
 The sticky bit is manipulated on the command line with the
-.BR chmod (1)
+.Xr chmod 1
 utility,
 or with the
-.B A
+.Ar A
 and
-.B X
+.Ar B
 commands to the
-.BR perpctl (8)
+.Xr perpctl 8
 utility.
-.TP
-``process supervisor''
+.It Dq process supervisor
 Some program, itself a persistent process,
 that starts and monitors another program to ensure its persistency.
-.SS Daemon Programs
-.TP
-.BR perpd (8)
+.El
+.Ss Daemon Programs
+.Bl -tag -width Ds
+.It Xr perpd 8
 the principal daemon of a perp installation:
 service directory scanner, process supervisor, and service controller;
 normally operating on the service installation directory
-.I /etc/perp
-.TP
-.BR perpboot (8)
+.Pa /etc/perp
+.It Xr perpboot 8
 recommended utility for starting
-.BR perpd (8)
-.SS Control Programs
-.TP
-.BR perp-setup (8)
+.Xr perpd 8
+.El
+.Ss Control Programs
+.Bl -tag -width Ds
+.It Xr perp-setup 8
 one-time post-installation configurator for initializing a
-.B perp
+.Ar perp
 system
-.TP
-.BR perpctl (8)
+.It Xr perpctl 8
 administrative utility for runtime control of
-.BR perpd (8)
-.TP
-.BR perphup (8)
+.Xr perpd 8
+.It Xr perphup 8
 rescan trigger utility for
-.BR perpd (8)
-.SS Query Programs
-.TP
-.BR perpls (8)
-perp service lister 
-.TP
-.BR perpstat (8)
+.Xr perpd 8
+.El
+.Ss Query Programs
+.Bl -tag -width Ds
+.It Xr perpls 8
+perp service lister
+.It Xr perpstat 8
 perp status reporter
-.TP
-.BR perpok (8)
+.It Xr perpok 8
 perp service checker
-.SS Logging Programs
-.TP
-.BR sissylog (8)
+.El
+.Ss Logging Programs
+.Bl -tag -width Ds
+.It Xr sissylog 8
 log stdin to
-.BR syslog (3)
-.TP
-.BR tinylog (8)
+.Xr syslog 3
+.It Xr tinylog 8
 log stdin to directory of rotated logfiles
-.SH FILES
+.El
+.Sh FILES
 The service installation directory
-.I /etc/perp
+.Pa /etc/perp
 will have the following layout:
-.TP
-.I /etc/perp
+.Pp
+.Bl -tag -width /etc/perp/foo/rc.main -compact
+.It Pa /etc/perp
 base directory for service installation, monitored by
-.BR perpd (8)
-.TP
-.I /etc/perp/.boot
+.Xr perpd 8
+.It Pa /etc/perp/.boot
 configuration directory used by
-.BR perpboot (8)
+.Xr perpboot 8
 to start
-.BR perpd (8)
-.TP
-.IR /etc/perp/.control " [--> " /var/run/perp " ]"
+.Xr perpd 8
+.It Pa /etc/perp/.control
 runtime control directory for the
-.I /etc/perp
+.Pa /etc/perp
 installation directory;
 normally a symlink to
-.I /var/run/perp
-.TP
-.I /etc/perp/foo
-.BR perpetrate (5)
-definition directory for some service ``foo'' under supervision of
-.BR perpd (8)
-.TP
-.I /etc/perp/foo/rc.log
-.BR perpetrate (5)
-optional runscript for starting/resetting a logger for service ``foo''
-.TP
-.I /etc/perp/foo/rc.main
-.BR perpetrate (5)
-required runscript for starting/resetting the service ``foo''
-.SH AUTHOR
-Wayne Marshall, http://b0llix.net/perp/
-.SH SEE ALSO
-.nh
-.BR perp-setup (8),
-.BR perpboot (8),
-.BR perpctl (8),
-.BR perpd (8),
-.BR perpetrate (5),
-.BR perphup (8),
-.BR perpls (8),
-.BR perpok (8),
-.BR perpstat (8),
-.BR sissylog (8),
-.BR tinylog (8)
-.\" EOF perp_intro.8
+.Pa /var/run/perp
+.It Pa /etc/perp/foo
+.Xr perpetrate 5
+definition directory for some service
+.Dq foo
+under supervision of
+.Xr perpd 8
+.It Pa /etc/perp/foo/rc.log
+.Xr perpetrate 5
+optional runscript for starting/resetting a logger for service
+.Dq foo
+.It Pa /etc/perp/foo/rc.main
+.Xr perpetrate 5
+required runscript for starting/resetting the service
+.Dq foo
+.El
+.Sh SEE ALSO
+.Xr perp-setup 8 ,
+.Xr perpboot 8 ,
+.Xr perpctl 8 ,
+.Xr perpd 8 ,
+.Xr perpetrate 5 ,
+.Xr perphup 8 ,
+.Xr perpls 8 ,
+.Xr perpok 8 ,
+.Xr perpstat 8 ,
+.Xr sissylog 8 ,
+.Xr tinylog 8
+.Sh AUTHORS
+.An Wayne Marshall
