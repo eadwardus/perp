@@ -1,306 +1,283 @@
-.\" perp-setup.8
-.\" wcm, 2009.12.23 - 2011.03.21
-.\" ===
-.TH perp-setup 8 "January 2013" "perp-2.07" "persistent process supervision"
-.SH NAME
-perp-setup \- initialize a perp installation
-.SH SYNOPSIS
-.B perp-setup [
-.I basedir
-.B ] [
-.I ctldir
-.B ]
-.SH DESCRIPTION
-.B perp-setup
+.Dd October 6, 2018
+.Dt PERP-SETUP 8
+.Os
+.Sh NAME
+.Nm perp-setup
+.Nd initialize a perp installation
+.Sh SYNOPSIS
+.Nm
+.Op Ar basedir
+.Op Ar ctldir
+.Sh DESCRIPTION
+.Nm
 is a post-installation configuration script intended to
 automate the setup of a
-.B perp
+.Ar perp
 system.
 It is usually run only one-time,
 after the installation of the
-.B perp
+.Ar perp
 package.
-.PP
-.B perp-setup
+.Pp
+.Nm
 configures the base service directory as
 given by the argument
-.IR basedir .
+.Ar basedir .
 If the
-.I basedir
+.Ar basedir
 argument is not specified,
-.B perp-setup
-will use the environmental variable PERP_BASE.
-If PERP_BASE is not set or empty,
-.B perp-setup
+.Nm
+will use the environmental variable
+.Ev PERP_BASE .
+.Nm
 will use a default value for
-.IR basedir ,
+.Ar basedir ,
 normally
-.IR /etc/perp .
-.PP
-.B perp-setup
+.Pa /etc/perp .
+.Pp
+.Nm
 creates the directories
-.I basedir
+.Ar basedir
 and
-.IR basedir/.boot
+.Pa basedir/.boot
 if they don't already exist.
 It then installs the standard
-.BR perpboot (8)
+.Xr perpboot 8
 scripts
-.I rc.log
+.Pa rc.log
 and
-.I rc.perp
+.Pa rc.perp
 into
-.IR basedir/.boot ,
+.Pa basedir/.boot ,
 and sets them executable.
-(If
-either of these scripts already exists,
-.B perp-setup
+.Po
+If either of these scripts already exists,
+.Nm
 leaves them alone and installs the new versions for review,
 non-executable,
 and with a
-.I .new
-extension.)
-.PP
-.B perp-setup
+.Pa .new
+extension
+.Pc
+.Pp
+.Nm
 then inspects the installation for the existence of
-.IR basedir/.control .
+.Pa basedir/.control .
 If it does not exist,
-.B perp-setup
+.Nm
 configures
-.I basedir/.control
+.Pa basedir/.control
 as a symlink to the directory given by the argument
-.IR ctldir .
+.Ar ctldir .
 If the
-.I ctldir
+.Ar ctldir
 argument is not specified,
-.B perp-setup
-will use the environmental variable PERP_CTL.
-If PERP_CTL is not set or empty,
-.B perp-setup
+.Nm
+will use the environmental variable
+.Ev PERP_CTL .
+If
+.Ev PERP_CTL
+is not set or empty,
+.Nm
 will use a default value for
-.IR ctrldir ,
+.Ar ctldir ,
 normally
-.IR /var/run/perp .
+.Pa /var/run/perp .
 Note that the
-.B perp-setup
+.Nm
 utility does not itself create the
-.I ctldir
+.Ar ctldir
 directory,
 only the symlink.
-.PP
-.B perp-setup
+.Pp
+.Nm
 then checks for a sysv-compatible
-.BR init (8)
+.Xr init 8
 system by looking for the file
-.IR /etc/inittab .
+.Pa /etc/inittab .
 If present, and if no
-.BR perpboot (8)
+.Xr perpboot 8
 entry is found within it,
-.B perp-setup
+.Nm
 appends an
-.BR inittab (5)
+.Xr inittab 5
 entry like the following:
-.PP
-.RS
-.nf
-## perpboot:
+.Pp
+.Bd -literal -offset indent
+##perpboot:
 PB:12345:respawn:/usr/sbin/perpboot -x /etc/perp
-.fi
-.RE
-.PP
+.Ed
+.Pp
 Check to see that this entry and the
-.BR perpboot (8)
+.Xr perpboot 8
 runscripts are suitable for your installation.
-A SIGHUP signal to
-.BR init (8)
+A
+.Ar SIGHUP
+signal to
+.Xr init 8
 will then start the
-.B perp
+.Ar perp
 system:
-.PP
-.RS
-kill -HUP 1
-.RE
-.PP
+.Pp
+.Dl kill -HUP 1
+.Pp
 Otherwise,
-.B perp-setup
+.Nm
 checks for a BSD-type
-.BR init (8)
+.Xr init 8
 system by looking for the file
-.IR /etc/rc.local .
+.Pa /etc/rc.local .
 If present,
 and if no
-.BR perpboot (8)
+.Xr perpboot 8
 is already found within it,
-.B perp-setup
+.Nm
 appends an entry like the following:
-.PP
-.RS
-.nf
+.Pp
+.Bd -literal -offset indent
 ## perpboot:
 if [ -x /usr/sbin/perpboot ]; then
     echo -n ' perpd'
         /usr/sbin/perpboot -d /etc/perp
 fi
-.fi
-.RE
-.PP
+.Ed
+.Pp
 Check to see that this entry and the
-.BR perpboot (8)
+.Xr perpboot 8
 runscripts are suitable for your installation.
 The
-.B perp
-system will then start after the system is rebooted: 
-.PP
-.RS
-.nf
-shutdown -r now
-.fi
-.RE
-.PP
+.Ar perp
+system will then start after the system is rebooted:
+.Pp
+.Dl shutdown -r now
+.Pp
 Whether using
-.I inittab
+.Ar inittab
 or
-.IR rc.local ,
+.Pa rc.local ,
 the administrator should look over the boot scripts and modify them if/as necessary for
 the specific installation.
-.PP
+.Pp
 The default
-.I rc.log
+.Pa rc.log
 script installed by
-.B perp-setup
+.Nm
 configures
-.BR tinylog (8)
+.Xr tinylog 8
 as the
-.BR perpd (8)
+.Xr perpd 8
 logger.
 The adminstrator may modify the logger and/or logging options
 by editing the script directly.
 The
-.I rc.log
+.Pa rc.log
 script also tries to run
-.BR tinylog (8)
+.Xr tinylog 8
 as an unprivileged user with
-.BR runuid (8).
-The adminstrator will need to add a ``tinylog'' user/group account
+.Xr runuid 8
+The adminstrator will need to add a
+.Dq tinylog
+user/group account
 to the system to enable this feature.
-.SH FILES
-.I /etc/perp/
-.RS
-The default base operating directory for
-.BR perpd (8).
-.RE
-.PP
-.I /etc/perp/.boot/
-.RS
-Directory containing the startup scripts used by
-.BR perpboot .
-.RE
-.PP
-.I /etc/perp/.boot/rc.log
-.RS
-Control script used by
-.B perpboot
-to start a logger for
-.BR perpd (8).
-.RE
-.PP
-.I /etc/perp/.boot/rc.perp
-.RS
-Control script used by
-.B perpboot
-to start up
-.BR perpd (8).
-.RE
-.PP
-.IR /etc/perp/.control " [\-\-> " /var/run/perp ]
-.RS
-Directory (normally a symlink) for runtime control files.
-.RE
-.PP
-.I /etc/inittab
-.RS
-.BR inittab (5)
-configuration file for sysv-compatible system.
-.RE
-.PP
-.I /etc/rc.local
-.RS
-.BR init (8)
-startup script for BSD-compatible system.
-.RE
-.SH ENVIRONMENT
-DESTDIR
-.RS
+.Sh ENVIRONMENT
+.Bl -tag -width PERP_BASE
+.It Ev DESTDIR
 If this variable is defined and non-empty,
-.B perp-setup
+.Nm
 prepends
-.I basedir
+.Ar basedir
 with this value before making directories and installing files.
 Implies NO_INIT,
 that is,
-.B perp-setup
+.Nm
 will skip setting up any system boot scripts
-.I inittab
+.Ar inittab
 or
-.IR rc.local .
+.Pa rc.local .
 May be useful for package builders.
-.RE
-.PP
-NO_INIT
-.RS
+.It Ev NO_INIT
 If this variable is defined and non-empty,
-.B perp-setup
+.Nm
 skips installation of any
-.BR perpboot (8)
+.Xr perpboot 8
 stanzas into the system bootscripts
-.I inittab
+.Ar inittab
 and
-.IR rc.local .
+.Pa rc.local .
 May be useful for package installation scripts,
-and/or when using other methods (such as an
-.I /etc/rc.d
-script) for starting
-.BR perpboot (8).
-.RE
-.PP
-PERP_BASE
-.RS
+and/or when using other methods
+.Po
+such as an
+.Pa /etc/rc.d
+script
+.Pc
+for starting
+.Xr perpboot 8 .
+.It Ev PERP_BASE
 If no
-.I basedir
+.Ar basedir
 argument is given at the command-line on startup,
-.B perp-setup
-checks for a value defined by PERP_BOOT.
+.Nm
+checks for a value defined by
+.Ev PERP_BOOT .
 If this is not defined or empty,
-.B perp-setup
+.Nm
 uses a built-in default, normally
-.IR /etc/perp .
-.RE
-.PP
-PERP_CTL
-.RS
+.Pa /etc/perp .
+.It Ev PERP_CTL
 If no
-.I ctldir
+.Ar ctldir
 argument is given at the command-line on startup,
-.B perp-setup
-checks for a value defined by PERP_CTL.
+.Nm
+checks for a value defined by
+.Ev PERP_CTL .
 If this is not defined or empty,
-.B perp-setup
+.Nm
 uses a built-in default, normall
-.IR /var/run/perp .
-.SH AUTHOR
-Wayne Marshall, http://b0llix.net/perp/
-.SH SEE ALSO
-.nh
-.BR perp_intro (8),
-.BR perpboot (8),
-.BR perpctl (8),
-.BR perpd (8),
-.BR perpetrate (5),
-.BR perphup (8),
-.BR perpls (8),
-.BR perpok (8),
-.BR perpstat (8),
-.BR sissylog (8),
-.BR tinylog (8),
-.BR runuid (8)
-.\" EOF perp-setup.8
+.Pa /var/run/perp .
+.El
+.Pp
+.Sh FILES
+.Bl -tag -width /etc/perp/.boot/rc.perp -compact
+.It Pa /etc/perp/
+The default base operating directory for
+.Xr perpd 8 .
+.It Pa /etc/perp/.boot/
+Directory containing the startup scripts used by
+.Xr perpboot 8 .
+.It Pa /etc/perp/.boot/rc.log
+Control script used by
+.Xr perpboot 8
+to start a logger for
+.Xr perpd 8 .
+.It Pa /etc/perp/.boot/rc.perp
+Control script used by
+.Xr perpboot 8
+to start up
+.Xr perpd 8 .
+.It Pa /etc/perp/.control
+Directory
+.Pq normally a symlink
+for runtime control files.
+.It Pa /etc/inittab
+.Xr inittab 5
+configuration file for sysv-compatible system.
+.It Pa /etc/rc.local
+.Xr init 8
+startup script for BSD-compatible system.
+.El
+.Sh SEE ALSO
+.Xr perp_intro 8 ,
+.Xr perpboot 8 ,
+.Xr perpctl 8 ,
+.Xr perpd 8 ,
+.Xr perpetrate 5 ,
+.Xr perphup 8 ,
+.Xr perpls 8 ,
+.Xr perpok 8 ,
+.Xr perpstat 8 ,
+.Xr sissylog 8 ,
+.Xr tinylog 8 ,
+.Xr runuid 8
+.Sh AUTHORS
+.An Wayne Marshall
