@@ -1,319 +1,309 @@
-.\" perpls.8
-.\" wcm, 2009.12.03 - 2011.02.01
-.\" ===
-.TH perpls 8 "January 2013" "perp-2.07" "persistent process supervision"
-.SH NAME
-perpls \- persistent process service lister
-.SH SYNOPSIS
-.B perpls [\-hV] [\-b
-.I basedir
-.B ] [\-cGgrt] [
-.I sv ...
-.B ]
-.SH DESCRIPTION
-.B perpls
+.Dd October 7, 2018
+.Dt PERPLS 8
+.Os
+.Sh NAME
+.Nm perpls
+.Nd persistent process service lister
+.Sh SYNOPSIS
+.Nm
+.Op Fl hV
+.Op Fl b Ar basedir
+.Op Fl cGgrt
+.Op Ar sv ...
+.Sh DESCRIPTION
+.Nm
 is used to list the current status of each
-.I sv
+.Ar sv
 argument monitored by an active
-.BR perpd (8)
+.Xr perpd 8
 supervisor.
-.PP
-.B perpls
+.Pp
+.Nm
 looks for
-.I sv
+.Ar sv
 in the directory
-.I basedir
+.Ar basedir
 if given with the
-.B \-b
+.Fl b
 option,
 or as set in the
-.B PERP_BASE
+.Ev PERP_BASE
 environmental variable,
 or in the current directory if neither of the previous is given.
 If no
-.I sv
+.Ar sv
 is given,
-.B perpls
+.Nm
 reports on all the subdirectories found in the base directory
-not beginning with `.'.
-.PP
+not beginning with
+.Sq \&. .
+.Pp
 For each service
-.IR sv ,
-.B perpls
+.Ar sv ,
+.Nm
 prints a single line reporting on the status of the service.
 The report for each service is given in a format similar to the following:
-.PP
-.RS
-.nf
-.B # perpls foo
+.Bd -literal -offset indent
+# perpls foo
 [+ +++ +++]  foo  uptime: 5s/5s  pids: 278/269
-.fi
-.RE
-.PP
-The line begins with a ``panel'' for the service,
+.Ed
+.Pp
+The line begins with a
+.Dq panel
+for the service,
 followed by the name of the service
-.IR sv ,
+.Ar sv ,
 followed by the current uptimes for the main/log processes,
 followed by the pids for the main/log processes.
-.PP
-The ``panel'' is a compact representation of the service status.
+.Pp
+The
+.Dq panel
+is a compact representation of the service status.
 It is displayed as a sequence of nine-characters within square brackets:
 a single character for the status of the
-.BR perpd (8)
+.Xr perpd 8
 supervisor itself,
 followed by a pair of triple-character sequences representing
 the main and log processes under its supervision.
-.PP
+.Pp
 The following characters are used in the panel:
-.TP
-.B +
+.Bl -tag -width Ds
+.It +
 Ok.
 The process is up and running.
 In the first position,
 shows that the
-.BR perpd (8)
-supervisor itself is up and running.
-If the panel is all `+',
+.Xr perpd 8
+upervisor itself is up and running.
+If the panel is all
+.Sq + ,
 it means all systems are go.
-.TP
-.B .
+.It \&.
 Down.
 The process is currently down.
-.PP
-.RS
-.nf
-.B # perpctl down foo && perpls foo
+.Bd -literal -offset indent
+# perpctl down foo && perpls foo
 [+ ... +++]  foo  uptime: -s/90s  pids -/269
-.fi
-.RE
-.TP
-.B !
+.Ed
+.It !
 Attention.
 Appears in the first position of a triplet sequence
 when the service is currently in a state it doesn't want to be in.
 There is a problem somewhere,
 often indicating that a runscript is not executable.
-For example, a service currently down but ``wants'' to be up:
-.PP
-.RS
-.nf
-.B # perpctl down foo
-.B # chmod -x foo/rc.main
-.B # perpctl up foo && perpls foo
-[+ !.. +++]  foo  uptime: -s/90s  pids 299/269
-.fi
-.RE
-.TP
-.B o
+For example, a service currently down but
+.Dq wants
+to be up:
+.Bd -literal -offset indent
+# perpctl down foo
+# chmod -x foo/rc.main
+# perpctl up foo && perpls foo
+[+ !.. +++]  foo  uptime: -s/90s  pids 299/26
+.Ed
+.It o
 Once.
 Appears in the second position of a triplet sequence
 when the process is up and running,
 but flagged to run only once:
-.PP
-.RS
-.nf
-.B # perpctl once foo && perpls foo
+.Bd -literal -offset indent
+# perpctl once foo && perpls foo
 [+ +o+ +++]  foo  uptime: 90s/90s  pids 278/269
-.fi
-.RE
-.TP
-.B p
+.Ed
+.It p
 Paused.
 Appears in the third position of a triplet sequence
 when the process is currently paused:
-.PP
-.RS
-.nf
-.B # perpctl pause foo && perpls foo
+.Bd -literal -offset indent
+# perpctl pause foo && perpls foo
 [+ ++p +++]  foo  uptime: 90s/90s  pids 278/269
-.fi
-.RE
-.TP
-.B r
+.Ed
+.It r
 Resetting.
 Appears in the third position of a triplet sequence
 when the service is currently resetting:
-.PP
-.RS
-.nf
-.B # perpctl pause foo && perpls foo
+.Bd -literal -offset indent
+# perpctl pause foo && perpls foo
 [+ ++r +++]  foo  uptime: 1s/90s  pids 299/269
-.fi
-.RE
-.TP
-.B -
+.Ed
+.It -
 Not active/available.
 In the first position of the panel,
 indicates the service definition
-.I sv
+.Ar sv
 is not active.
-The rest of the panel will be filled by `-' characters,
+The rest of the panel will be filled by
+.Sq -
+characters,
 and no reporting will appear for uptimes and pids.
-.PP
-.RS
-.nf
-.B # chmod -t foo && perpls foo
+.Bd -literal -offset indent
+# chmod -t foo && perpls foo
 [- --- ---]  foo
-.fi
-.RE
-.TP
-.B E
+.Ed
+.It E
 Error.
 Appears only in the first position for overall status.
 Displayed when a problem was encountered in finding the
-.I sv
+.Ar sv
 argument or its
-.BR perpd (8)
+.Xr perpd 8
 supervisor.
-The rest of the panel will be filled by `-' characters,
+The rest of the panel will be filled by
+.Sq -
+characters,
 and followed by a diagnostic message describing the error:
-.PP
-.RS
-.nf
-.B # perpls foo
+.Bd -literal -offset indent
+# perpls foo
 [E --- ---]  foo  error: failure stat() on service directory (ENOENT)
-.fi
-.RE
-.SS Colorized Listings
+.Ed
+.El
+.Ss Colorized Listings
 On terminals with color support,
-.B perpls
-may display a ``colorized'' listing when given the
-.B \-G
+.Nm
+may display a
+.Dq colorized
+listing when given the
+.Fl G
 option on the command line,
-or if PERPLS_COLORS is defined with a capability string in the environment.
+or if
+.Ev PERPLS_COLORS
+is defined with a capability string in the environment.
 The colorization is applied to the
-.I sv
+.Ar sv
 name in the report according to the status found for the service.
-Colorization is based on ANSI (ISO 6429) color sequences,
+Colorization is based on ANSI
+.Pq ISO 6429
+color sequences,
 selected from a capability table that defines
-the following entries (default values shown in parentheses):
-.TP
-.B df
-Default (df=00).
+the following entries
+.Pq default values shown in parentheses :
+.Bl -tag -width Ds
+.It df
+Default
+.Pq df=00 .
 Applied when a capability is otherwise undefined.
-.TP
-.B na
-Not active (na=00).
+.It na
+Not active
+.Pq na=00 .
 Applied when a service is not activated.
-.TP
-.B an
-Active-normal (an=01).
+.It an
+Active-normal
+.Pq an=01 .
 Applied when the main service is active and running normally.
-.TP
-.B ar
-Active-resetting (ar=01;33).
+.It ar
+Active-resetting
+.Pq ar=01;33 .
 Applied when the main service is resetting.
-.TP
-.B ap
-Active-paused (ap=01;33).
+.It ap
+Active-paused
+.Pq ap=01;33 .
 Applied when the main service is paused.
-.TP
-.B ad
-Active-down (ad=01;34).
+.It ad
+Active-down
+.Pq ad=01;34 .
 Applied when the main service is down.
-.TP
-.B wu
-Want-up (wu=01;33).
+.It wu
+Want-up
+.Pq wu=01;33 .
 Applied when the main service is down but wants up.
-.TP
-.B wd
-Want-down (wd=01;33).
+.It wd
+Want-down
+.Pq wd=01;33 .
 Applied when the main service is up but wants down.
-.TP
-.B er
-Error (er=01;31).
+.It er
+Error
+.Pq er=01;31 .
 Applied when an error encountered.
-.TP
-.B ex
-Exception (ex=01;31).
+.It ex
+Exception
+.Pq ex=01;31 .
 Applied when an exceptional condition encountered.
-.PP
+.El
+.Pp
 In a default installation,
 the capability table will be predefined with the following string:
-.PP
-.RS
+.Bd -literal -offset indent
 "df=00:na=00:an=01:ar=01;33:ap=01;33:\\
 ad=01;34:wu=01;33:wd=01;33:er=01;31:ex=01;31"
-.RE
-.SH OPTIONS
-.TP
-.B \-b basedir
+.Ed
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl b Ar basedir
 Base directory.
 Look for
-.I sv
+.Ar sv
 in
-.IR basedir .
-.TP
-.B \-c
+.Ar basedir .
+.It Fl c
 Current directory.
 Look for
-.I sv
+.Ar sv
 in the current directory,
-even if PERP_BASE is defined in the environment.
-.TP
-.B \-g
+even if
+.Ev PERP_BASE
+is defined in the environment.
+.It Fl g
 No color.
 Do not colorize listing,
-even if PERPLS_COLORS is defined in the environment.
-.TP
-.B \-G
+even if
+.Ev PERPLS_COLORS
+is defined in the environment.
+.It Fl G
 Colorize.
 Display a colorized listing.
-Use the capability table given by PERPLS_COLORS
+Use the capability table given by
+.Ev PERPLS_COLORS
 if defined in the environment,
-or use a built-in capability table if PERPLS_COLORS is not defined.
-.TP
-.B \-h
+or use a built-in capability table if
+.Ev PERPLS_COLORS
+is not defined.
+.It Fl h
 Help.
 Print a brief usage message to stderr and exit.
-.TP
-.B \-K
+.It Fl K
 Capability.
 Print the current capability table for colorized listings and exit.
-The environment variable PERPLS_COLORS must be defined.
+The environment variable
+.Ev PERPLS_COLORS
+must be defined.
 Otherwise this option must be combined with the
-.B \-G
+.Fl G
 option to display the built-in capability table.
-.TP
-.B \-r
+.It Fl r
 Reverse sort.
 Display the listing in reverse order.
 Normally the listing appears in the order of
-.I sv
+.Ar sv
 given on the command line,
 or in alphabetical order if no
-.I sv
+.Ar sv
 are given.
 The
-.B \-r
+.Fl r
 option lists in the reverse of this order.
 This option may be combined with the
-.B \-t
+.Fl t
 option.
-.TP
-.B \-t
+.It Fl t
 Uptime.
 Display the listing ordered by uptime of the main service,
 shortest uptimes first.
 May be combined with the
-.B \-r
+.Fl r
 option to display longest uptimes first.
-.TP
-.B \-V
+.It Fl V
 Version.
 Print the version number to stderr and exit.
-.SH AUTHOR
-Wayne Marshall, http://b0llix.net/perp/
-.SH SEE ALSO
-.nh
-.BR perp_intro (8),
-.BR perpboot (8),
-.BR perpctl (8),
-.BR perpd (8),
-.BR perpetrate (5),
-.BR perphup (8),
-.BR perpok (8),
-.BR perpstat (8),
-.BR sissylog (8),
-.BR tinylog (8)
-.\" EOF perpls.8
+.El
+.Sh SEE ALSO
+.Xr perp_intro 8 ,
+.Xr perpboot 8 ,
+.Xr perpctl 8 ,
+.Xr perpd 8 ,
+.Xr perpetrate 5 ,
+.Xr perphup 8 ,
+.Xr perpok 8 ,
+.Xr perpstat 8 ,
+.Xr sissylog 8 ,
+.Xr tinylog 8
+.Sh AUTHORS
+.An Wayne Marshall
