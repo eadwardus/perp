@@ -24,7 +24,7 @@
 **   collisions will be lower. You can even subtract 'A' when you know
 **   that the keys will be only English words.
 ** </quote>
-** see Peter Kanowski's website noted in hfunc.h [*6]   
+** see Peter Kanowski's website noted in hfunc.h [*6]
 **
 ** note:
 ** this function could be parameterized for the subtraction constant,

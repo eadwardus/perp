@@ -19,7 +19,7 @@ struct dynbuf {
 typedef struct dynbuf  dynbuf_t;
 
 /* constructor for malloc'ed dynbuf: */
-extern dynbuf_t * dynbuf_new(void); 
+extern dynbuf_t * dynbuf_new(void);
 
 /* destructor for malloc'ed dynbuf: */
 extern void dynbuf_free(dynbuf_t *);

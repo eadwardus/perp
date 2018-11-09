@@ -50,7 +50,7 @@ main(int argc, char *argv[])
 
   progname = nextopt_progname(&nopt);
   while((opt = nextopt(&nopt))){
-      char optc[2] = {nopt.opt_got, '\0'}; 
+      char optc[2] = {nopt.opt_got, '\0'};
       switch(opt){
       case 'h': usage(); die(0); break;
       case 'V': version(); die(0); break;
@@ -100,7 +100,7 @@ main(int argc, char *argv[])
   if(lockpid == 0){
       fatal(111, "perpd not running on ", basedir, ": no lock active on ", pathbuf);
   }
- 
+
   if(kill(lockpid, opt_t ? SIGTERM : SIGHUP) == -1){
       fatal_syserr("failure kill() on ", opt_t ? "SIGTERM" : "SIGHUP" , " to perpd pid ",
                    nfmt_uint32(nbuf, (uint32_t)lockpid),

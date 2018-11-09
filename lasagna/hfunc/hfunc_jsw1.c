@@ -17,7 +17,7 @@
 /* map of 256 random 32-bit unsigned integers in range [0 .. (2^32 - 1)]
 ** drawn from netbsd /dev/random entropy pool
 ** (see rand_map.c for generator)
-*/ 
+*/
 static const uint32_t rand_map[] = {
     0xbb4ff5d5,  0x81d0ef50,  0x3be3de34,  0xbe3928ae,  0x81121bb8,  0x89b7a81,  0xd7a475fc,  0x2af22c3f,
     0x4facee74,  0x286c928f,  0xdcec21d8,  0xb0694711,  0x898103b0,  0x2b48f767,  0xd9e0eed4,  0xb2311d0d,

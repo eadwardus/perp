@@ -66,7 +66,7 @@ hdb_init(struct hdb *H, int fd)
       H->tndx[i].value = upak32_UNPACK(buf);
       buf += 4;
       H->tndx[i].offset = upak32_UNPACK(buf);
-  }      
+  }
 
   /* H->cbase: offset to base of comment area: */
   H->cbase = HDB_CBASE;

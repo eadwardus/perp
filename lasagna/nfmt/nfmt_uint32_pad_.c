@@ -39,6 +39,6 @@ nfmt_uint32_pad_(char *s, uint32_t n, size_t w)
 
   return len;
 }
-          
+
 
 /* eof: nfmt_uint32_pad_.c */

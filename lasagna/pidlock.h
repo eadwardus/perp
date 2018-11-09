@@ -21,8 +21,8 @@ enum pidlock_wait {
 **   return
 **     > 0 : pid of process owning lock on lockfile
 **     0   : pidlock not running
-**    -1   : system error, errno set 
-*/    
+**    -1   : system error, errno set
+*/
 extern pid_t pidlock_check(const char *lockfile);
 
 

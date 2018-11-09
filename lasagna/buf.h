@@ -33,7 +33,7 @@ extern void * buf_fill(void *b, size_t n, int c);
 **   starting from beginning of buffers
 **   return "to"
 **   note: to and from may overlap
-*/ 
+*/
 extern void * buf_copy(void *to, const void *from, size_t count);
 
 /* buf_rcopy()
@@ -41,7 +41,7 @@ extern void * buf_copy(void *to, const void *from, size_t count);
 **   starting from count position of buffers
 **   return "to"
 **   note: to and from may overlap
-*/ 
+*/
 extern void * buf_rcopy(void *to, const void *from, size_t count);
 
 /* buf_ndx()
@@ -51,7 +51,7 @@ extern void * buf_rcopy(void *to, const void *from, size_t count);
 **   return:
 **     if found:  first pos (in range 0..(n-1)), b[pos] = (unsigned char)c
 **     not found: n
-*/ 
+*/
 extern size_t buf_ndx(const void *b, size_t n, int c);
 
 /* buf_rndx()
@@ -61,7 +61,7 @@ extern size_t buf_ndx(const void *b, size_t n, int c);
 **   return:
 **     if found:  last pos (in range 0..(n-1)), b[pos] = (unsigned char)c
 **     not found: n
-*/ 
+*/
 extern size_t buf_rndx(const void *b, size_t n, int c);
 
 

@@ -13,7 +13,7 @@ dynstr_chop(dynstr_t *S)
         --S->n;
     }
 
-    return; 
+    return;
 }
 
 /* eof: dynstr_chop.c */

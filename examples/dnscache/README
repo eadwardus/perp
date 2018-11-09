@@ -28,7 +28,7 @@ complete documentation at http://cr.yp.to/djbdns.html.
                   or: my ip address for external cache
 
      IPSEND: the ip address on which dnscache sends outgoing queries
-             default: 0.0.0.0 
+             default: 0.0.0.0
 
        ROOT: runtime chroot directory for dnscache
              default: CWD/root

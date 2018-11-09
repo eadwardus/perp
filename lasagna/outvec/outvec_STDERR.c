@@ -10,7 +10,7 @@
 ** predefine outvec objects for stderr:
 */
 
-/* unbuffered stderr (flushme set): */ 
+/* unbuffered stderr (flushme set): */
 #define _VEC_STDERR_SIZE  16
 static struct iovec _VEC_STDERR[_VEC_STDERR_SIZE];
 struct outvec OUTVEC_STDERR = outvec_INIT(2, _VEC_STDERR, _VEC_STDERR_SIZE, 1);

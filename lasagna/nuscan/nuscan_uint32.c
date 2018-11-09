@@ -26,6 +26,6 @@ nuscan_uint32(uint32_t *result, const char *s)
 
    *result = r;
    return s;
-} 
+}
 
 /* EOF (nuscan_uint32.c) */

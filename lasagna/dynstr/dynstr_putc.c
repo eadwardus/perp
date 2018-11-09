@@ -18,7 +18,7 @@ dynstr_putc(dynstr_t *S, char c)
     ++S->n;
     S->s[S->n] = '\0';
 
-    return 0; 
+    return 0;
 }
 
 /* eof: dynstr_putc.c */

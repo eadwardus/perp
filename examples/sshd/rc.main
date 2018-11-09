@@ -46,9 +46,9 @@ reset() {
         echo "*** ${SVNAME}: exited status $4" ;;
     'signal' )
         echo "*** ${SVNAME}: killed on signal $5" ;;
-    * ) 
+    * )
         echo "*** ${SVNAME}: stopped ($3)" ;;
-  esac 
+  esac
   exit 0
 }
 

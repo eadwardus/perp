@@ -75,7 +75,7 @@ nextopt(struct nextopt *nopt)
             ++ARG_NDX;
             return '\0';
         }
-    } 
+    }
 
     /* read current option letter: */
     opt_got = nopt->opt_got = nopt->_argv[ARG_NDX][OPT_NDX];

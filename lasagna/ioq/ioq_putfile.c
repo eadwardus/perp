@@ -59,7 +59,7 @@ ioq_putfile(ioq_t *ioq, const char *filename)
 
     /* success: */
     close(fd);
-    return 0; 
+    return 0;
 
 fail:
     terrno = errno;

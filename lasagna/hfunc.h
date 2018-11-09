@@ -209,7 +209,7 @@ extern uint32_t hfunc_sdbm(const uchar_t *key, size_t klen);
 **   ie, djbx() with modifications as for fnvm():
 **     mix/combine reordered
 **     post-process mixing applied as with postmix32()
-**     
+**
 */
 extern uint32_t hfunc_djbm(const uchar_t *key, size_t klen);
 
@@ -271,7 +271,7 @@ extern uint32_t hfunc_jsw1(const uchar_t *key, size_t klen);
 **     collisions will be lower. You can even subtract 'A' when you know
 **     that the keys will be only English words.
 **   </quote>
-**   see Peter Kanowski's website at [*6]   
+**   see Peter Kanowski's website at [*6]
 **
 **   note/XXX:
 **   this function could be parameterized for the subtraction constant,
@@ -331,7 +331,7 @@ extern uint32_t hfunc_rsuh(const uchar_t *key, size_t klen);
 **   "shift/add/xor"
 **   enumerated by Julienne Walker[*1]
 **   (original credit?)
-*/ 
+*/
 extern uint32_t hfunc_sax1(const uchar_t *key, size_t klen);
 
 /* hfunc_sfh1()
@@ -370,7 +370,7 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 **   http://bretm.home.comcast.net/~bretm/hash/
 **
 ** (links current at 2010.05.06)
-**   
+**
 */
 
 
@@ -379,11 +379,11 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 ** This module contains a collection of a few hash functions I was
 ** exploring during the development of the hdb/hash database.  The
 ** collection may contain errors and is not exhaustive.
-** 
+**
 ** Most of the functions follow a similar "skeleton" pattern.  Here
 ** is the usual conventional hash function as found in "classic"
 ** texts:
-** 
+**
 **   uint32_t hf(key, klen)
 **   {
 **     uint32_t h = INIT;
@@ -394,41 +394,41 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 **     }
 **     return h;
 **   }
-** 
+**
 ** As shown in the snippet above, the hash is first initialized to
 ** some value INIT.  Then, for each byte of key, the hash is first
 ** mixed by a MIX operation, and then the new byte is combined with
 ** the hash by an ADD operation.
-** 
+**
 ** When the loop is finished, the last computed value of the hash
 ** is returned.
-** 
+**
 ** The variances among "classic" hash functions involve small
 ** differences in the assignment of INIT, the MIX operation, and
 ** the ADD operation.  Generally INIT is usually zero, sometimes
 ** the klen argument, or otherwise set to some prime number:
-** 
+**
 **     h = 0;
 **     h = klen;
 **     h = 5381;
-** 
+**
 ** The MIX operation is usually a multiplication by some constant
 ** factor, usually prime:
-** 
+**
 **     h = h * 37;
 **     h = h * 33;
-** 
+**
 ** In many cases this MIX multiplication operation is recast to
 ** bit shift operations, providing the same results as above:
-** 
+**
 **     h = (h << 5) + (h << 2) + h;  // h *= 37
 **     h = (h << 5) + h;             // h *= 33
-** 
+**
 ** The ADD operation is usually one of add or xor:
-** 
+**
 **     h = h + *key;
 **     h = h ^ *key;
-** 
+**
 ** Although the "classic" hash function formula is still widely
 ** practiced, many have observed a weakness in the model.  Namely,
 ** that the value of the last key byte is strongly "imprinted" in
@@ -436,12 +436,12 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 ** distribution across all bits of the hash, the final ADD of the
 ** last key byte leaves a bias from that last byte within the lower
 ** bits of the hash.
-** 
+**
 ** A couple of strategies to deal with this weakness are found in
 ** current practice.  The first strategy is to simply reorder the
 ** MIX and ADD operations, so that the key byte is added into the
 ** hash _before_ the mix operation.
-** 
+**
 **   uint32_t hf(key, klen)
 **   {
 **     uint32_t h = INIT;
@@ -452,11 +452,11 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 **     }
 **     return h;
 **   }
-** 
+**
 ** The second strategy is to add a post-processing function to the
 ** hash.  Its purpose is to give all the bits of the hash a good
 ** stir after the final key byte has been added:
-** 
+**
 **   uint32_t hf(key, klen)
 **   {
 **     uint32_t h = INIT;
@@ -468,15 +468,15 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 **     h = POSTMIX(h);  // post-processing
 **     return h;
 **   }
-** 
+**
 ** An example of a post-processing mix is suggested by Bret Mulvey[*8]:
-** 
+**
 **   h += h << 13;
 **   h ^= h >> 7;
 **   h += h << 3;
 **   h ^= h >> 17;
 **   h += h << 5;
-** 
+**
 ** Most hash function attempting to achieve a "best practice" will
 ** now employ both strategies. That is:
 **
@@ -500,11 +500,11 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 ** of hash values.  Clustered hash values, in turn, will cause
 ** insertion collisions and performance degradation, particularly
 ** in direct-addressing hash tables.
-** 
+**
 ** This problem of key byte clustering may be further amplified
 ** when key strings are also of fixed length.  The mix-first/add-last
 ** algorithms are the worst to use in these scenarios.
-** 
+**
 ** A few of the algorithms here are interesting in that they explore
 ** alternative variations to the "classic" functions.  The "jsw1"
 ** function suggested by Julien Walker, for example, first maps
@@ -512,7 +512,7 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 ** the ADD operation.  Although input key bytes may still be poorly
 ** distributed, the random mapping will at least tend to spread
 ** their values over a greater range of bits.
-** 
+**
 ** Another of the more interesting functions in this library is
 ** "Murmur2" ("murm") by Austin Appleby.  Although it is somewhat
 ** more complex than the "classic" functions, it processes keys
@@ -537,7 +537,7 @@ extern uint32_t hfunc_sfh1(const uchar_t *key, size_t klen);
 ** be in 4-byte chunks except the last; must call the post-processing
 ** mix explicitly.
 **
-*/ 
+*/
 
 #endif /* HFUNC_H */
 /* eof (hfunc.h) */

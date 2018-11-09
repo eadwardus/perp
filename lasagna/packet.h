@@ -39,7 +39,7 @@ packet_read(int fd, void *packet, size_t to_read);
 **   returns:
 **     >0 : bytes written
 **     -1 : io error (some bytes may have been written)
-*/ 
+*/
 extern
 ssize_t
 packet_write(int fd, const void *packet, size_t to_write);

@@ -1,5 +1,5 @@
 /* runchoom.c
-** run a program after writing "-17\n" to /proc/<pid>/oom_adj 
+** run a program after writing "-17\n" to /proc/<pid>/oom_adj
 ** (abatement for "dreaded linux oom killer")
 ** wcm, 2011.03.18 - 2011.03.22
 ** ===
@@ -99,7 +99,7 @@ write_all(int fd, void *buf, size_t to_write)
   */
 
   return 0;
-} 
+}
 
 
 /* do_choom()
@@ -152,7 +152,7 @@ do_choom(void)
   /* success: */
   if(opt_v){
       eputs(progname, ": successfully configured ", pathbuf);
-  } 
+  }
 
   return;
 }
@@ -167,7 +167,7 @@ main(int argc, char *argv[], char *envp[])
   uint32_t     pid = 0;
   const char  *z;
   size_t       n;
- 
+
   progname = nextopt_progname(&nopt);
   while((opt = nextopt(&nopt))){
       char optc[2] = {nopt.opt_got, '\0'};
@@ -194,7 +194,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 
@@ -225,7 +225,7 @@ main(int argc, char *argv[], char *envp[])
   if(arg_set == NULL)
       arg_set = CHOOM_SET_DEFAULT;
 
-  nfmt_uint32(pidfmt, (pid == 0) ? (uint32_t)getpid() : pid); 
+  nfmt_uint32(pidfmt, (pid == 0) ? (uint32_t)getpid() : pid);
 
   n = cstr_vlen(arg_base, "/", pidfmt, "/", arg_key);
   if((sizeof pathbuf) - n < 5){
@@ -243,7 +243,7 @@ main(int argc, char *argv[], char *envp[])
   do_choom();
 
   execvx(prog, argv, envp, NULL);
-  fatal_syserr("unable to run ", prog); 
+  fatal_syserr("unable to run ", prog);
 
   /* not reached: */
   return 0;

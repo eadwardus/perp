@@ -30,7 +30,7 @@ extern char *nfmt_uint64(char *s, uint64_t n);
 ** return pointer to s
 */
 extern char *nfmt_uint32_pad(char *s, uint32_t n, size_t w);
-extern char *nfmt_uint64_pad(char *s, uint64_t n, size_t w); 
+extern char *nfmt_uint64_pad(char *s, uint64_t n, size_t w);
 
 /*
 ** stringify unsigned integer n into s, octal representation
@@ -54,7 +54,7 @@ extern char *nfmt_uint32x(char *s, uint32_t n);
 ** return pointer to s
 */
 extern char *nfmt_uint32_pad0(char *s, uint32_t n, size_t w);
-extern char *nfmt_uint64_pad0(char *s, uint64_t n, size_t w); 
+extern char *nfmt_uint64_pad0(char *s, uint64_t n, size_t w);
 
 
 /*

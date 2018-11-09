@@ -64,7 +64,7 @@ pkt_write(int fd, const pkt_t pkt, size_t offset)
         to_write -= w;
     }
 
-    return (b - offset - pkt); 
+    return (b - offset - pkt);
 }
 
 /* eof: pkt_write.c */

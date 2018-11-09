@@ -89,9 +89,9 @@ do_envfile(const char *envfile)
       }
   }
 
-  ioq_init(&q, fd, qbuf, sizeof qbuf, &read); 
+  ioq_init(&q, fd, qbuf, sizeof qbuf, &read);
 
-  while(!eof){ 
+  while(!eof){
       /* recycle any allocated dynstr: */
       dynstr_CLEAR(&L);
 
@@ -110,7 +110,7 @@ do_envfile(const char *envfile)
           /* else:
           ** eof was encountered after partial line read
           ** (last line not terminated with '\n')
-          ** proceed through the end of this loop 
+          ** proceed through the end of this loop
           */
       }
 
@@ -152,7 +152,7 @@ do_envfile(const char *envfile)
       }
 
   }
- 
+
   /* success: */
   if(fd) close(fd);
   return 0;
@@ -249,7 +249,7 @@ do_envuid(const char *account)
 {
   struct passwd  *pw = NULL;
   char            nfmt[NFMT_SIZE];
-  int             err; 
+  int             err;
 
   pw = getpwnam(account);
   if(pw == NULL){
@@ -259,12 +259,12 @@ do_envuid(const char *account)
   err = newenv_set("GID", nfmt_uint32(nfmt, (uint32_t)pw->pw_gid));
   if(err){
       fatal_syserr("failure allocating new environment");
-  }    
+  }
   err = newenv_set("UID", nfmt_uint32(nfmt, (uint32_t)pw->pw_uid));
   if(err){
       fatal_syserr("failure allocating new environment");
-  }    
-  
+  }
+
   return 0;
 }
 
@@ -295,7 +295,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

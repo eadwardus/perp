@@ -124,7 +124,7 @@ do_sticky(int flag_sticky, char *argv[])
   if(lockpid == 0){
       fatal(111, "perpd not running on ", basedir, ": no lock active on ", pathbuf);
   }
- 
+
   if(kill(lockpid, SIGHUP) == -1){
       fatal_syserr("failure kill() on SIGHUP to perpd pid ",
                    nfmt_uint32(nbuf, (uint32_t)lockpid),
@@ -229,7 +229,7 @@ do_control(uchar_t cmd[], char *argv[]){
       report(*argv, ": ok");
   }
 
-  return; 
+  return;
 }
 
 

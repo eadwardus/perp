@@ -86,7 +86,7 @@ cdbmk_addioq(struct cdbmk *M,
       }
       ioq_seek(ioq_in, r);
       klen -= r;
-  } 
+  }
 
   /* drain separator from input: */
   while(seplen){
@@ -115,7 +115,7 @@ cdbmk_addioq(struct cdbmk *M,
       }
       ioq_seek(ioq_in, r);
       dlen -= r;
-  } 
+  }
 
   /* store/update block: */
   return cdbmk__update(M, hash, rpos, fp_up);

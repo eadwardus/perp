@@ -139,8 +139,8 @@ extern void * ioq_peek(ioq_t *ioq);
 **
 **   important: caller must constrain value of pos:
 **       ((pos >= 0) && (pos < ioq_feed(ioq)))
-**     
-*/   
+**
+*/
 extern void ioq_seek(ioq_t *ioq, size_t pos);
 
 /* ioq_SEEK()
@@ -152,7 +152,7 @@ extern void ioq_seek(ioq_t *ioq, size_t pos);
 
 /*
 ** suggested idiom for low-level "get" operations:
-** 
+**
 **     ioq_t   in;
 **     char   *b;
 **     int     r;
@@ -166,7 +166,7 @@ extern void ioq_seek(ioq_t *ioq, size_t pos);
 **         // advance internal position within buffer of ioq:
 **         ioq_seek(&in, r);
 **     }
-**     
+**
 */
 
 
@@ -246,7 +246,7 @@ extern int ioq_puts(ioq_t *ioq, const char *s);
 /* ioq_vputs_()
 **   ioq_puts() one or more argument strings into ioq
 **   return: as ioq_put()
-**   
+**
 **   notes:
 **     * caller _must_ supply NULL as final argument
 **     * use macro verion instead

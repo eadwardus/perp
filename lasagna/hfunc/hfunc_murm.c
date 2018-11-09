@@ -53,15 +53,15 @@ hfunc_murm(const uchar_t *key, size_t klen)
   ** notes:
   **   loop sentinal ensures at least 4 bytes remain in key
   **   upak32_UNPACK() on 4-byte chunks of key is consistent across
-  **   architectures 
+  **   architectures
   */
   while(klen >= 4){
       k = upak32_UNPACK(key);
-      k *= m; 
-      k ^= k >> r; 
-      k *= m; 
-        
-      h *= m; 
+      k *= m;
+      k ^= k >> r;
+      k *= m;
+
+      h *= m;
       h ^= k;
 
       key += 4;
@@ -85,7 +85,7 @@ hfunc_murm(const uchar_t *key, size_t klen)
   h ^= h >> 15;
 
   return h;
-} 
+}
 
 
 /* eof (hfunc_murm.c) */

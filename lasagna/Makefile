@@ -211,7 +211,7 @@ cdb_get.o : cdb/cdb_get.c cdb.h
 
 cdb_hashpart.o : cdb/cdb_hashpart.c cdb.h
 	$(CC) $(CFLAGS) -c cdb/cdb_hashpart.c
- 
+
 cdb_init.o : cdb/cdb_init.c cdb.h
 	$(CC) $(CFLAGS) -c cdb/cdb_init.c
 
@@ -293,7 +293,7 @@ DYNBUF_OBJS=\
  dynbuf_pack.o \
  dynbuf_put.o \
  dynbuf_putb.o \
- 
+
 dynbuf.o : dynbuf/dynbuf.c dynbuf.h
 	$(CC) $(CFLAGS) -c dynbuf/dynbuf.c
 
@@ -420,7 +420,7 @@ DYNSTUF_OBJS=\
  dynstuf_sort.o \
  dynstuf_stuf.o \
  dynstuf_visit.o \
- 
+
 dynstuf_find.o : dynstuf/dynstuf_find.c dynstuf.h
 	$(CC) $(CFLAGS) -c dynstuf/dynstuf_find.c
 
@@ -456,7 +456,7 @@ dynstuf_push.o : dynstuf/dynstuf_push.c dynstuf.h
 
 dynstuf_replace.o : dynstuf/dynstuf_replace.c dynstuf.h
 	$(CC) $(CFLAGS) -c dynstuf/dynstuf_replace.c
- 
+
 dynstuf_reverse.o : dynstuf/dynstuf_reverse.c dynstuf.h
 	$(CC) $(CFLAGS) -c dynstuf/dynstuf_reverse.c
 
@@ -563,7 +563,7 @@ hdb_get.o : hdb/hdb_get.c hdb.h
 
 hdb_hashpart.o : hdb/hdb_hashpart.c hdb.h
 	$(CC) $(CFLAGS) -c hdb/hdb_hashpart.c
- 
+
 hdb_init.o : hdb/hdb_init.c hdb.h
 	$(CC) $(CFLAGS) -c hdb/hdb_init.c
 
@@ -851,7 +851,7 @@ nfmt_uint64_pad0_.o : nfmt/nfmt_uint64_pad0_.c nfmt.h
 NUSCAN_OBJS=\
  nuscan_uint32.o \
  nuscan_uint32o.o \
- 
+
 nuscan_uint32.o : nuscan/nuscan_uint32.c nuscan.h
 	$(CC) $(CFLAGS) -c nuscan/nuscan_uint32.c
 
@@ -1198,7 +1198,7 @@ ufunc_u32add.o : ufunc/ufunc_u32add.c ufunc.h
 ufunc_u48add.o : ufunc/ufunc_u48add.c ufunc.h
 	$(CC) $(CFLAGS) -c ufunc/ufunc_u48add.c
 
- 
+
 ##
 ## upak:
 ##

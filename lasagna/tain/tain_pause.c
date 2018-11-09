@@ -21,7 +21,7 @@ tain_pause(const struct tain *t, struct tain *rem)
 
   t_req.tv_sec =  (time_t)t->sec;
   t_req.tv_nsec = (long)t->nsec;
-  
+
   t_rem.tv_sec = 0;
   t_rem.tv_nsec = 0;
 

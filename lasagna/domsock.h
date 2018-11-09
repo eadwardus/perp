@@ -61,7 +61,7 @@ int domsock_accept(int s);
 
 /* domsock_close()
 **   close() domsock socket s and unlink() its path address
-**   
+**
 **   return:
 **     0: success
 **    -1: error, errno set

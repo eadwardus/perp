@@ -18,10 +18,10 @@
 /*
 ** The following source code is derived from original sources published
 ** under a separate license.
-** 
+**
 ** First, the permission granted to use the original source code under a
 ** specific license:
-** 
+**
 ** <quote>
 **   For the specific coverage of raw source code (only) obtained from
 **   this website, you have the option of using the old-style BSD license
@@ -30,31 +30,31 @@
 **   my derivative license, or who are using a old-style BSD compatible
 **   license.
 ** </quote>
-**   
+**
 ** Second, the license itself:
-** 
+**
 ** <quote>
 **   Paul Hsieh OLD BSD license
-**   
+**
 **   Copyright (c) 2010, Paul Hsieh All rights reserved.
-**   
+**
 **   Redistribution and use in source and binary forms, with or without
 **   modification, are permitted provided that the following conditions
 **   are met:
-**   
+**
 **       * Redistributions of source code must retain the above copyright
 **         notice, this list of conditions and the following disclaimer.
-**   
+**
 **       * Redistributions in binary form must reproduce the above
 **         copyright notice, this list of conditions and the following
 **         disclaimer in the documentation and/or other materials provided
 **         with the distribution.
-**   
+**
 **       * My name, Paul Hsieh, and the names of any other contributors
 **         to the code use may be used to endorse or promote products
 **         derived from this software without specific prior written
 **         permission.
-**   
+**
 **   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 **   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 **   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -67,7 +67,7 @@
 **   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 **   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 **   POSSIBILITY OF SUCH DAMAGE.
-** </quote> 
+** </quote>
 **
 **
 ** The quotes above extracted on 2010.06.05 from the web document:
@@ -98,7 +98,7 @@ hfunc_sfh1(const uchar_t *key, size_t klen)
   **
   ** notes:
   **   loop sentinal ensures at least 4 bytes remain in key
-  **   upak16_UNPACK() on key is consistent across architectures 
+  **   upak16_UNPACK() on key is consistent across architectures
   */
   while(klen >= 4){
       h += (uint32_t)upak16_UNPACK(key);

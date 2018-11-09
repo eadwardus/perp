@@ -23,7 +23,7 @@ dynstr_need(dynstr_t *S, size_t need)
         S->k = need;
     }
 
-    return 0; 
+    return 0;
 }
 
 /* eof: dynstr_need.c */

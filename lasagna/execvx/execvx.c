@@ -121,7 +121,7 @@ nextpath:
   dynstr_freestr(&tpath);
 
   return -1;
-} 
+}
 
 
 #if 0

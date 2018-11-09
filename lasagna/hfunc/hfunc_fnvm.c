@@ -21,7 +21,7 @@
 **     all the uniform distribution tests above and it achieves avalanche
 **     for every tested combination of input and output bits (green
 **     squares everywhere). No xor-folding step is required.
-**     
+**
 **     The only difference between this version and the original version
 **     is that the mixing steps occurs after the combining step in each
 **     round, and it adds a post-processing step to mix the bits even
@@ -30,7 +30,7 @@
 **     all of the #2 tests above, all the way up to 216 buckets. I
 **     haven't tested larger sizes but I suspect it would be OK there
 **     as well.
-**   </quote>     
+**   </quote>
 **
 ** FNV-1a notes:
 **     params identical to FNV-1, but internal operations ordered differently

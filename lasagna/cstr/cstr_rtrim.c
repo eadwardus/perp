@@ -17,12 +17,12 @@ cstr_rtrim(char *s)
 
   if(sN > s)
     --sN;
-  
+
   while((sN > s) && isspace((int)(unsigned char)*sN)){
       *sN-- = '\0';
   }
-  
-  return s;    
+
+  return s;
 }
 
 /* eof: cstr_rtrim.c */

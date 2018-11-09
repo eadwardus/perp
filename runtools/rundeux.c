@@ -142,7 +142,7 @@ setup(void)
 
   sig_ignore(SIGPIPE);
   return;
-}    
+}
 
 
 static
@@ -189,7 +189,7 @@ child_exec(int which)
           sleep(2);
       }
   }
-      
+
   /* child (or, if not opt_super, execing into deux[1]): */
   if(pid == 0){
       /* setup logpipe: */
@@ -248,7 +248,7 @@ child_wait(void)
 
   return;
 }
-             
+
 
 static
 void
@@ -327,7 +327,7 @@ main(int argc, char *argv[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

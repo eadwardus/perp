@@ -35,7 +35,7 @@ cdb_read(struct cdb *C, uchar_t *buf, size_t len, uint32_t offset)
       buf_copy(buf, C->map + offset, len);
       return 0;
   }
-      
+
   /* else read() from fd ... */
 
   if(lseek(fd, (off_t)offset, SEEK_SET) == -1)
@@ -58,7 +58,7 @@ cdb_read(struct cdb *C, uchar_t *buf, size_t len, uint32_t offset)
       }
   }
 
-  return 0;    
+  return 0;
 }
 
 /* eof (cdb_read.c) */

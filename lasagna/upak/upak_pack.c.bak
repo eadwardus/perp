@@ -22,7 +22,7 @@ upak_pack(uchar_t *buf, char *fmt, ...)
   char      *p;
   uint16_t   u16;
   uint32_t   u32;
-  uint64_t   u64; 
+  uint64_t   u64;
 
   va_start(args, fmt);
   for(p = fmt; *p != '\0'; ++p){
@@ -61,7 +61,7 @@ upak_pack(uchar_t *buf, char *fmt, ...)
       }
   }
   va_end(args);
-  return b - buf;  
+  return b - buf;
 }
 
 

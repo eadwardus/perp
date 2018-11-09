@@ -35,7 +35,7 @@ hdbmk_clear(struct hdbmk *M)
       }
       M->block_list[i] = NULL;
   }
-    
+
   return;
 }
 

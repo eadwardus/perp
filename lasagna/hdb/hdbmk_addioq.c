@@ -95,7 +95,7 @@ hdbmk_addioq(struct hdbmk *M,
       }
       ioq_seek(ioq_in, r);
       klen -= r;
-  } 
+  }
 
   /* drain separator from input: */
   while(seplen){
@@ -124,7 +124,7 @@ hdbmk_addioq(struct hdbmk *M,
       }
       ioq_seek(ioq_in, r);
       dlen -= r;
-  } 
+  }
 
   /* store/update block: */
   return hdbmk__update(M, hash, rpos, fp_up);

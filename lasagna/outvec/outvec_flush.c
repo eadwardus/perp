@@ -28,7 +28,7 @@ outvec_flush(struct outvec *vec)
       if(w == -1){
           /* error (errno set by writev()): */
           return -1;
-      } 
+      }
 
       /* check/handle for partial writes: */
       if(w > 0){

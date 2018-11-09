@@ -15,7 +15,7 @@
 */
 #define DYNSTUF_SWAP(stuf,t,A,B) {\
     (t) = stuf[(A)]; stuf[(A)] = stuf[(B)]; stuf[(B)] = (t); }
-    
+
 void
 dynstuf_reverse(struct dynstuf *S)
 {
@@ -31,7 +31,7 @@ dynstuf_reverse(struct dynstuf *S)
         DYNSTUF_SWAP(stuf, tmp, ix0, ixN);
     }
 
-    return; 
+    return;
 }
 
 

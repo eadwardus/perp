@@ -86,7 +86,7 @@ the pid of the currently running perpd process, and then kill(1) it:
 
   $ su
   # ps ux | grep perpd
-  root  233  ...   1:11PM 0:00.01 perpd -a6 /etc/perp 
+  root  233  ...   1:11PM 0:00.01 perpd -a6 /etc/perp
   # kill 233
 
 In this example, the current instance of perpd is shown running as

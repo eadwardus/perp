@@ -17,10 +17,10 @@
 /*
 ** concept:
 **   pkt_t is an object type designed to implement a simple packet protocol
-** 
+**
 **   pkt[258]:
 **   index          bytes   comment
-**   =============  =====   =========================================== 
+**   =============  =====   ===========================================
 **   pkt[0]            1    P   protocol id
 **   pkt[1]            1    T   packet type id
 **   pkt[2]            1    N   size of data payload
@@ -28,7 +28,7 @@
 **   -------------
 **   258 bytes total
 **
-**   P:  intended to signal the protocol version of pkt 
+**   P:  intended to signal the protocol version of pkt
 **   T:  intended to signal a "type" for the data in pkt
 **
 **   note:
@@ -65,8 +65,8 @@ typedef uchar_t  pkt_t[PKT_SIZE];
 
 /* static pkt_t variable initialization
 ** idiom:
-**   pkt_t  pkt = pkt_INIT(P, T, N); 
-*/ 
+**   pkt_t  pkt = pkt_INIT(P, T, N);
+*/
 #define  pkt_INIT(P,T,N)  {(P), (T), (N)}
 
 /* pkt_load():
@@ -81,7 +81,7 @@ typedef uchar_t  pkt_t[PKT_SIZE];
 **   note: there are other means of writing into the payload of the
 **   pkt_t without breaking the abstract interface; see the notes at
 **   the bottom of this file
-*/ 
+*/
 extern int pkt_load(pkt_t K, uchar_t P, uchar_t T, uchar_t *buf, size_t dlen);
 
 /* pkt_read():
@@ -106,8 +106,8 @@ extern int pkt_load(pkt_t K, uchar_t P, uchar_t T, uchar_t *buf, size_t dlen);
 **         in this call; caller should call again with adjusted offset
 **         if the pkt_len(pkt) is incomplete
 **
-*/ 
-extern ssize_t pkt_read(int fd, pkt_t K, size_t offset); 
+*/
+extern ssize_t pkt_read(int fd, pkt_t K, size_t offset);
 
 /* pkt_write():
 **   write() pkt K[offset] to file descriptor fd
@@ -139,7 +139,7 @@ extern ssize_t pkt_write(int fd, const pkt_t K, size_t offset);
 ** that is, within functions defined with pkt_t array parameters:
 **
 **   myfunc(pkt_t K, ...){ ... }
-**    
+**
 ** the body of the function sees K as though defined:
 **
 **   myfunc(uchar_t *K, ...){ ... }

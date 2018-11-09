@@ -44,7 +44,7 @@ struct hdbmk {
   /* buffer for ioq: */
 #define HDBMK_BUFSIZE  8192
   uchar_t              buf[HDBMK_BUFSIZE];
-};    
+};
 typedef struct hdbmk  hdbmk_t;
 
 

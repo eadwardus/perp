@@ -26,7 +26,7 @@ cstr_vcopy_(char *to, ...)
       }
       from = va_arg(args, const char *);
   }
-  va_end(args); 
+  va_end(args);
 
   return (to - to0);
 }

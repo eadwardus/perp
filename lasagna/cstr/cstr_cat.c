@@ -19,7 +19,7 @@ cstr_cat( char *to,  const char *from)
     if (!(*to)) break; ++to;
   }
 
-  for (;;) {  
+  for (;;) {
     if (!(*to = *from)) break; ++to; ++from;
     if (!(*to = *from)) break; ++to; ++from;
     if (!(*to = *from)) break; ++to; ++from;

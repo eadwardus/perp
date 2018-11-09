@@ -77,9 +77,9 @@ do_argfile(const char *argfile)
       }
   }
 
-  ioq_init(&q, fd, qbuf, sizeof qbuf, &read); 
+  ioq_init(&q, fd, qbuf, sizeof qbuf, &read);
 
-  while(!eof){ 
+  while(!eof){
       /* recycle any allocated dynstr: */
       dynstr_CLEAR(&L);
 
@@ -98,7 +98,7 @@ do_argfile(const char *argfile)
           /* else:
           ** eof was encountered after partial line read
           ** (last line not terminated with '\n')
-          ** proceed through the end of this loop 
+          ** proceed through the end of this loop
           */
       }
 
@@ -146,7 +146,7 @@ main(int argc, char * argv[], char * envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

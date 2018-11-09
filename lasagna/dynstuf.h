@@ -113,7 +113,7 @@ extern size_t dynstuf_find(
     size_t          slot,
     void           *key,
     int            (*cmp)(const void *key1, const void *key2)
-); 
+);
 
 
 /* sort items in dynstuf using supplied cmp() function: */

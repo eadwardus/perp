@@ -22,11 +22,11 @@
 
 /*
 ** hdb32 file structure:
-** 
+**
 **   I  M  P  C  R  H
-** 
+**
 ** where:
-** 
+**
 **   I: identifier
 **       16 byte id string: "hdb32/1.0\0\0\0\0\0\0\0"
 **
@@ -42,7 +42,7 @@
 **           4 bytes tbase: offset to base of subtable in section H
 **
 **   C: descriptive comment
-**       arbitrary byte string of any length 
+**       arbitrary byte string of any length
 **       length computed from: rbase - cbase
 **       (cbase is a constant 16 + 8 + 64 = 88 bytes offset in file)
 **
@@ -54,7 +54,7 @@
 **           klen bytes: key
 **           dlen bytes: data
 **       note: klen/dlen each limited to (2^24 - 1) = 16M
-** 
+**
 **   H: hash table section
 **       H[0..7][0..(slots[t])] hash subtables
 **       8 subtables of slots[t] slots per subtable
@@ -170,8 +170,8 @@ extern int hdb_clear(hdb_t *H);
 **
 **   convenience for:
 **       fd = open(path, O_RDONLY | O_NONBLOCK);
-**       hdb_init(H, fd); 
-**     
+**       hdb_init(H, fd);
+**
 **   notes:
 **     fd is opened: fd = open(path, O_RDONLY | O_NONBLOCK);
 **     usually paired with hdb_close() on completion
@@ -280,11 +280,11 @@ extern int hdb_findnext(hdb_t *H);
 **   after successful hdb_find():
 **     copy len bytes of record data at hdb_dpos(H) into buffer
 **     buffer supplied by caller is at least len bytes
-**     if (len > H->dlen), only dlen bytes copied into buffer 
+**     if (len > H->dlen), only dlen bytes copied into buffer
 **
 **   return:
 **     0 : success
-**    -1 : error, errno set 
+**    -1 : error, errno set
 */
 extern int hdb_get(hdb_t *H, uchar_t *buffer, size_t len);
 
@@ -353,7 +353,7 @@ extern int hdb_read(hdb_t *H, uchar_t *buf, size_t len, uint32_t offset);
 **   a low-level operation to provide arbitrary access into an hdb
 **   copy into dynbuf appends from D->buf[D->p]
 **   (dynbuf grown as necessary)
-**    
+**
 **   return:
 **     0 : success
 **    -1 : error, errno set

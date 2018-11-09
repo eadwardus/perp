@@ -26,7 +26,7 @@ hfunc_oat1(const uchar_t *key, size_t klen)
       h += *key;
       h += (h << 10);
       h += (h >> 6);
-      ++key, --klen; 
+      ++key, --klen;
   }
 
   h += (h << 3);

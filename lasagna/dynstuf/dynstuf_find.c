@@ -25,7 +25,7 @@ dynstuf_find(
         }
         ++slot;
     }
-    
+
     /* match not found: */
     return items;
 }

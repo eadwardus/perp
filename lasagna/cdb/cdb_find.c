@@ -19,7 +19,7 @@ static int cdb_hash_probe(struct cdb *C, uint32_t target);
 /* cdb_key_match()
 **   compare record key of klen at kpos
 **   to search key initialized in cdb_find()
-*/   
+*/
 static
 int
 cdb_key_match(struct cdb *C, const uchar_t *key, uint32_t klen, uint32_t kpos)
@@ -129,7 +129,7 @@ cdb_find(struct cdb *C, const uchar_t *key, uint32_t klen)
   uint32_t  fp;
   uchar_t   nbuf[8];
   uint32_t  hash, tslots, target;
-  
+
   /* search initialization: */
   C->key = (uchar_t *)key;
   C->klen = klen;
@@ -165,7 +165,7 @@ cdb_findnext(struct cdb *C)
     uint32_t  target = C->sN;
 
     /* advance target from last succesful find: */
-    ++target; 
+    ++target;
     if(target == C->tslots) target = 0;
     if(target == C->s0){
         /* back at original target; key not found: */

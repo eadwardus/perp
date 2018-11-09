@@ -37,7 +37,7 @@ pidlock_check(const char *lockfile)
     }while((e == -1) && (errno == EINTR));
     errno = terrno;
 
-    return pid; 
+    return pid;
 }
 
 

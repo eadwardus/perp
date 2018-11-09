@@ -26,7 +26,7 @@ hdb_get(struct hdb *H, uchar_t *buf, size_t len)
     if(len > H->dlen)
         len = H->dlen;
 
-    return (hdb_read(H, buf, len, hdb_dpos(H))); 
+    return (hdb_read(H, buf, len, hdb_dpos(H)));
 }
 
 /* eof (hdb_get.c) */

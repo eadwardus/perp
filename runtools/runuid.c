@@ -74,7 +74,7 @@ do_grplist(gid_t gid, const char *grplist)
       fatal_syserr(111, "failure setgroups() for group list ", grplist);
   }
 
-  return; 
+  return;
 }
 
 
@@ -119,7 +119,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 
@@ -146,7 +146,7 @@ main(int argc, char *argv[], char *envp[])
   if(pw == NULL){
       fatal(111, "no account found for user ", user_acct);
   }
-  
+
   gid = pw->pw_gid;
   uid = pw->pw_uid;
 
@@ -180,7 +180,7 @@ main(int argc, char *argv[], char *envp[])
 
   if(setuid(uid) == -1){
       fatal_syserr("failure setuid()");
-  } 
+  }
 
   /* execvx() provides path search for prog */
   execvx(prog, argv, envp, NULL);

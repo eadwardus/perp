@@ -17,7 +17,7 @@ cdb_open(struct cdb *C, const char *path)
 
   fd = open(path, O_RDONLY | O_NONBLOCK);
   if(fd == -1)
-      return -1; 
+      return -1;
 
   return cdb_init(C, fd);
 }

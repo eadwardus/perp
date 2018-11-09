@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <errno.h> 
+#include <errno.h>
 #include <signal.h>
 
 struct sysno_def {
@@ -537,7 +537,7 @@ size_t signo_init(void)
   size_t  items = (sizeof signo_defs / sizeof(struct sysno_def));
 
   /* qsort errno_defs[]: */
-  qsort(signo_defs, items, sizeof(struct sysno_def), &sysno_compare); 
+  qsort(signo_defs, items, sizeof(struct sysno_def), &sysno_compare);
 
   return items;
 }
@@ -549,7 +549,7 @@ size_t errno_init(void)
   size_t  items = (sizeof errno_defs / sizeof(struct sysno_def));
 
   /* qsort errno_defs[]: */
-  qsort(errno_defs, items, sizeof(struct sysno_def), &sysno_compare); 
+  qsort(errno_defs, items, sizeof(struct sysno_def), &sysno_compare);
 
   return items;
 }
@@ -602,7 +602,7 @@ do_errno(void)
   size_t  i;
 
   /* sort errno table: */
-  errno_items = errno_init(); 
+  errno_items = errno_init();
   fprintf(stderr, "%s: sorted %zu items in errno table\n", progname, errno_items);
 
   printf(

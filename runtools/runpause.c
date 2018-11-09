@@ -51,7 +51,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 
@@ -77,7 +77,7 @@ main(int argc, char *argv[], char *envp[])
       sleep(secs);
 
   sig_uncatch(SIGALRM);
-  errno = 0; 
+  errno = 0;
 
   /* execvx() provides path search for prog */
   execvx(argv[0], argv, envp, NULL);

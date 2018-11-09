@@ -29,7 +29,7 @@ static char attention[200];
 
 /* other declarations in scope: */
 static void logline_post(const char *logline, int flag_continue);
-static int do_log(void); 
+static int do_log(void);
 
 
 static
@@ -46,7 +46,7 @@ read_op(int fd, void *buf, size_t len)
 }
 
 
-static 
+static
 void
 logline_post(const char *logline, int flag_continue)
 {
@@ -118,7 +118,7 @@ do_log(void)
       }
   }
 
-  return r;    
+  return r;
 }
 
 
@@ -145,7 +145,7 @@ main(int argc, char *argv[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

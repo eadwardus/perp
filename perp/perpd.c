@@ -217,7 +217,7 @@ static
 void
 perpd_control_init(void)
 {
-  int  fdbase;  
+  int  fdbase;
   int  fd = -1;
 
   /* setup for return to base directory: */
@@ -272,7 +272,7 @@ perpd_control_init(void)
       }
   }
   if(domsock_listen(fd, PERPD_CONNMAX) == -1){
-      fatal_syserr("failure listen() on socket ", PERPD_SOCKET); 
+      fatal_syserr("failure listen() on socket ", PERPD_SOCKET);
   }
   if(fd_nonblock(fd) == -1){
       fatal_syserr("failure fcntl() non-blocking on socket ", PERPD_SOCKET);
@@ -405,7 +405,7 @@ perpd_waitup(void)
       if(perpd_svdef_cullok(&svdefs[i])){
           ++got_cull;
       }
-      /* check if service wants reactivation: */ 
+      /* check if service wants reactivation: */
       if(svdefs[i].bitflags & SVDEF_FLAG_CYCLE){
           log_debug("setting up reactivation following deactivation for ", svdefs[i].name);
           ++got_cycle;
@@ -630,16 +630,16 @@ perpd_scan(void)
 **
 ** The perpd event loop is conceptually simple -- though long-winded
 ** in its full elaboration.
-** 
+**
 ** It is based on using poll() to multiplex a set of (non-blocking)
 ** i/o events.
-** 
+**
 ** The events are of three types:
-** 
+**
 **   * signal interrupts (arriving via selfpipe)
 **   * read/write events for connected clients
 **   * new client connections on control socket
-** 
+**
 ** The connections are set non-blocking to be sure the perpd server
 ** can never be "hung" by a non-responsive or malicious client.  This
 ** requirement means it must accomodate the possibility of partial
@@ -648,7 +648,7 @@ perpd_scan(void)
 ** control packet, along with cursors to indicate the current read/write
 ** position within the buffer.  The control packet protocol is defined
 ** in such a way to allow a completeness check after each read/write.
-** 
+**
 ** Additionally, timestamps are applied to each client connection, so that
 ** stale connections may be closed and culled prior to each new poll().
 **
@@ -741,7 +741,7 @@ perpd_mainloop(void)
           ++i;
       }
 
-      /* setup pollv[]: */       
+      /* setup pollv[]: */
       for(i = 0; i < nconns; ++i){
           pollv[2 + i].fd = clients[i].connfd;
           switch(clients[i].state){
@@ -982,7 +982,7 @@ main(int argc, char *argv[])
          break;
      case ':':
          fatal_usage("missing argument for option -", optc);
-         break; 
+         break;
      case '?':
          if(nopt.opt_got != '?'){
              fatal_usage("invalid option -", optc);
@@ -1012,7 +1012,7 @@ main(int argc, char *argv[])
   sigset_fill(&poll_sigset);
   sigset_block(&poll_sigset);
 
-  /* setup signal handlers: */ 
+  /* setup signal handlers: */
   sig_catch(SIGCHLD, &sig_trap);
   sig_catch(SIGHUP,  &sig_trap);
   sig_catch(SIGINT,  &sig_trap);

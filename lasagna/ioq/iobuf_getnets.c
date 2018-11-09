@@ -52,7 +52,7 @@ get_netslen(iobuf *ibuf, size_t *len, size_t max)
 int iobuf_getnets(iobuf *ibuf, dynbuf *b, size_t max)
 {
   int     r;
-  size_t  len = 0; 
+  size_t  len = 0;
   char   *buf;
   char    c;
 

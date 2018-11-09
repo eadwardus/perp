@@ -61,7 +61,7 @@ ioq_putfd(ioq_t *ioq, int fd, size_t len)
 
     /* success: */
     munmap(map, len);
-    return 0; 
+    return 0;
 
 fail:
     terrno = errno;

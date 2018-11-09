@@ -19,7 +19,7 @@ dynstr_grow(dynstr_t *S, size_t grow)
         return dynstr_need(S, need);
     }
 
-    return 0; 
+    return 0;
 }
 
 /* eof: dynstr_grow.c */

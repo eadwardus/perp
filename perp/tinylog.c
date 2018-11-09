@@ -9,7 +9,7 @@
 **   provide short-circuit logic for keep if keep_max == 0
 **   provide unlimited keep files
 **   provide unlimited growth of current if size == 0
-*/  
+*/
 
 /* standard libs: */
 #include <stdlib.h>
@@ -65,8 +65,8 @@ struct tinylog {
     size_t       current_size;
     size_t       current_max;
     size_t       keep_max;
-    int          wantstamp; 
-    int          wantzip; 
+    int          wantstamp;
+    int          wantzip;
 };
 
 /* ioq for stdin: */
@@ -203,7 +203,7 @@ write_all(int fd, void *buf, size_t len)
   }
 
   return;
-} 
+}
 
 
 /* stamp8601_make()
@@ -283,7 +283,7 @@ init_current(struct tinylog *tinylog, int resume)
     int          e;
     int          fd;
     int          new = 0;
-    
+
     /* stat current: */
     e = stat("current", &sb);
     if(e == -1){
@@ -488,7 +488,7 @@ tinylog_prune(struct tinylog *tinylog)
                   cstr_copy(target, d->d_name);
               }
           }
-      } 
+      }
       terrno = errno;
       closedir(dir);
 
@@ -589,13 +589,13 @@ tinylog_gzip(struct tinylog *tinylog, const char *file)
         unlink("zipped");
         return -1;
     }
-   
+
     if(chmod(gzipfile, 0644) == -1){
         warn_syserr("fail chmod() after gzip");
         unlink(gzipfile);
         return -1;
     }
- 
+
     /* archive zipped successfully, delete original file: */
     RETRY((unlink(file) == -1),
         "fail unlink() after gzip on ", file);
@@ -703,7 +703,7 @@ main(int argc, char *argv[])
 
     mypid = getpid();
     my_pidstr = nfmt_uint32(pidbuf, (uint32_t)mypid);
-    progname = nextopt_progname(&nopt);    
+    progname = nextopt_progname(&nopt);
     while((opt = nextopt(&nopt))){
         char optc[2] = {nopt.opt_got, '\0'};
         switch(opt){

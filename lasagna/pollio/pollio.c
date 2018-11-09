@@ -35,7 +35,7 @@ pollio(struct pollfd *pollv, nfds_t numfds, int msecs_max, int *msecs_rem)
       tain_now(&after);
   }
 
-  /* error: short-circuit return: */  
+  /* error: short-circuit return: */
   if(n < 0) return n;
 
   /* non-blocking poll requested: */

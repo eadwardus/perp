@@ -15,32 +15,32 @@
 
 /*
 ** diagram internal workings of ioq with write() operations
-** 
+**
 **            0
 ** start:    |....................|
 **            p                   n
 **           buffer empty
 **           p = 0
 **           n = sizeof(b), ie 20
-** 
+**
 **   note:
 **       n is invariant!
 **       unlike ioq with read(), n never changes
-** 
+**
 ** put 5:    |xxxxx...............|
 **                 p              n
 **           p = 5
 **           n = 20
 **           avail = n - p = 15
-** 
+**
 ** and so forth until put request exceeds available space in buffer
 ** then:
 **   ioq_flush() empties buffer completely to start state
 **   p reset to 0
 **   put starts filling again from 0
-** 
+**
 ** note: conceptually, buffer is always filled from front
-*/ 
+*/
 
 
 /* internal declarations: */
@@ -60,7 +60,7 @@ static int write_all(int fd, void *buf, size_t to_write, ssize_t (*op)());
 **     -1 : error write() operation, errno set
 **
 **   note: on error, some bytes may have been written
-*/      
+*/
 static
 int
 write_all(int fd, void *buf, size_t to_write, ssize_t (*op)())
@@ -87,7 +87,7 @@ write_all(int fd, void *buf, size_t to_write, ssize_t (*op)())
   */
 
   return 0;
-} 
+}
 
 
 /* ioq_flush()

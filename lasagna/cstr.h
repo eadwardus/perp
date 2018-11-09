@@ -78,7 +78,7 @@ cstr_cmpi(const char *s1, const char *s2);
 **   return:
 **     1: true, s1 begins with s2
 **     0: false, test fails
-**      
+**
 **   notes:
 **     djb analogue:  str_start(s1, s2)
 */
@@ -159,7 +159,7 @@ cstr_lcpy(char *to, const char *from, size_t to_size);
 **
 **   return:
 **     number of chars preceeding nul
-*/ 
+*/
 extern
 size_t
 cstr_len(const char *s);

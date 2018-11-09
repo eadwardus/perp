@@ -68,7 +68,7 @@ list_reverse(struct hdbmk_block **list)
 **     each slot is 8 bytes:
 **       4 bytes hash value
 **       4 bytes rpos (0 if slot empty)
-*/ 
+*/
 static
 int
 tbuf_load(uchar_t *tbuf, uint32_t tslots, uint32_t target, uint32_t hash, uint32_t rpos)
@@ -98,7 +98,7 @@ tbuf_load(uchar_t *tbuf, uint32_t tslots, uint32_t target, uint32_t hash, uint32
           return -1;
       }
 #endif
-  } 
+  }
 
   return 0;
 }
@@ -149,7 +149,7 @@ hdbmk_finish(struct hdbmk *M)
      subtab_offset[i] = toff;
      /* update toff with overflow check: */
      if(ufunc_u32add(&toff, (slots * 8)) == -1) return -1;
-  } 
+  }
 
   /* overflow check: */
   fp_eof = hbase;

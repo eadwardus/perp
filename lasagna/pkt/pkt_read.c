@@ -32,9 +32,9 @@
 **         in this call; caller should call again with adjusted offset
 **         if the pkt_len(pkt) is incomplete
 **
-*/ 
+*/
 ssize_t
-pkt_read(int fd, pkt_t pkt, size_t offset) 
+pkt_read(int fd, pkt_t pkt, size_t offset)
 {
     size_t    n = 0;
     size_t    to_read = 0;
@@ -45,7 +45,7 @@ pkt_read(int fd, pkt_t pkt, size_t offset)
        errno = EINVAL;
        return -1;
     }
-    /* else: */ 
+    /* else: */
     max -= offset;
     n += offset;
 

@@ -26,7 +26,7 @@ cdb_get(struct cdb *C, uchar_t *buf, size_t len)
     if(len > C->dlen)
         len = C->dlen;
 
-    return (cdb_read(C, buf, len, cdb_dpos(C))); 
+    return (cdb_read(C, buf, len, cdb_dpos(C)));
 }
 
 /* eof (cdb_get.c) */

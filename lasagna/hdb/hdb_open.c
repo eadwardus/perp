@@ -17,7 +17,7 @@ hdb_open(struct hdb *H, const char *path)
 
   fd = open(path, O_RDONLY | O_NONBLOCK);
   if(fd == -1)
-      return -1; 
+      return -1;
 
   return hdb_init(H, fd);
 }

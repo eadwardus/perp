@@ -23,6 +23,6 @@ dynbuf_new()
     }
 
     return d;
-} 
+}
 
 /* eof: dynbuf_new.c */

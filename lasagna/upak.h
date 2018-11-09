@@ -26,7 +26,7 @@
 **
 **      buf[0] = u0, buf[1] = u1, buf[2] = u2, buf[3] = u3, ...
 **
-** 
+**
 **  example for 32-bit unsigned integer types (4 bytes):
 **
 **  uint32_t  u;
@@ -37,7 +37,7 @@
 */
 
 /* upakNN_*() common interface:
-** 
+**
 ** upakNN_pack():
 **   pack uintNN_t integer u into buffer b
 **   return b

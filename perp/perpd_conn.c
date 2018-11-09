@@ -368,10 +368,10 @@ perpd_conn_exec_query(struct perpd_conn *client)
       buf[65] = 0;
   }
 
-  pkt_load(client->pkt, 2, 'S', buf, 66); 
+  pkt_load(client->pkt, 2, 'S', buf, 66);
   client->n = pkt_len(client->pkt);
   client->w = 0;
-  client->state = PERPD_CONN_WRITING;  
+  client->state = PERPD_CONN_WRITING;
 
   return;
 }
@@ -397,7 +397,7 @@ perpd_conn_exec_reply(struct perpd_conn *client, int err)
   pkt_load(client->pkt, 2, 'E', buf, sizeof(uint32_t));
   client->n = pkt_len(client->pkt);
   client->w = 0;
-  client->state = PERPD_CONN_WRITING;  
+  client->state = PERPD_CONN_WRITING;
 
   return;
 }

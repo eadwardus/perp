@@ -35,7 +35,7 @@ cdbmk_clear(struct cdbmk *M)
       }
       M->input_list[i] = NULL;
   }
-    
+
   return;
 }
 

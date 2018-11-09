@@ -49,6 +49,6 @@ main(int argc, char * argv[])
   printf("/* eof: outvec_STDOUT.h */\n");
 
   return 0;
-} 
+}
 
 /* eof: mk_outvec.c */

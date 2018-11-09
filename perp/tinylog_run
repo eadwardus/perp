@@ -15,7 +15,7 @@ _CONF=/etc/tinylog.conf
 _DIR=$1
 
 _mesg() {
-  echo "${_PROG}($$): $1" >/dev/stderr  
+  echo "${_PROG}($$): $1" >/dev/stderr
 }
 
 _fail() {

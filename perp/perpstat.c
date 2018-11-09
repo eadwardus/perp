@@ -89,7 +89,7 @@ report(const char *name, const uchar_t *status, const tain_t *now)
   vputs("\n");
 
   /* main: */
-  pid = upak32_unpack(&status[30]); 
+  pid = upak32_unpack(&status[30]);
   tain_unpack(&when, &status[34]);
   flags = status[46];
   uptime = tain_uptime(now, &when);
@@ -205,7 +205,7 @@ main(int argc, char *argv[])
           fatal_syserr("failure connecting to perpd control socket ", pathbuf);
       }
   }
- 
+
   /* uptimes compared to now: */
   tain_now(&now);
 

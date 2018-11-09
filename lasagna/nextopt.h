@@ -8,7 +8,7 @@
 
 #include <stddef.h>    /* size_t */
 
-/* nextopt summary: 
+/* nextopt summary:
 **   not quite getopt()
 **   * no error reporting (that is, no stdio/printf() inside!)
 **   * does not export any global variables
@@ -106,7 +106,7 @@ nextopt_start(
 **   nopt->opt_got: the actual option character found
 **       for usage when nextopt() itself returns '?' or ':'
 **
-**   nopt->opt_arg: pointer to option argument, if option requires argument 
+**   nopt->opt_arg: pointer to option argument, if option requires argument
 **       set to NULL if option does not require argument
 **
 **   nopt->arg_ndx: current argv index
@@ -182,7 +182,7 @@ main(int argc, char *argv[])
     }
 
     printf("all done!\n");
-    return 0;    
+    return 0;
 }
 #endif /* example */
 

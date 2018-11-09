@@ -13,7 +13,7 @@
 /* elf1()
 ** unix elf object file hash
 ** slight modification of pjw1
-*/ 
+*/
 
 /* hash function: */
 uint32_t

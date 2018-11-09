@@ -21,18 +21,18 @@
 
 /*
 ** cdb32 file structure:
-** 
+**
 **   P  R  H
-** 
+**
 ** where:
-** 
+**
 **   P: hash table pointer section (8 bytes * 256)
 **       P[0..255] hash subtable pointers
 **       pointers to 256 hash subtables
 **       each pointer comprised of:
 **           4 bytes tbase: offset to base of subtable in section H
 **           4 bytes slots: number of slots in subtable
-** 
+**
 **   R: record data section
 **       R[0..(nrecs-1)] records
 **       nrecs records, each record comprised of:
@@ -40,7 +40,7 @@
 **           4 bytes dlen: length of data in this record
 **           klen bytes: key
 **           dlen bytes: data
-** 
+**
 **   H: hash table section
 **       H[0..255][0..(slots[t]-1)] hash subtables
 **       256 subtables of slots[t] slots per subtable
@@ -121,8 +121,8 @@ extern int cdb_clear(cdb_t *C);
 **
 **   convenience for:
 **       fd = open(path, O_RDONLY | O_NONBLOCK);
-**       cdb_init(C, fd); 
-**     
+**       cdb_init(C, fd);
+**
 **   notes:
 **     fd is opened: fd = open(path, O_RDONLY | O_NONBLOCK);
 **     usually paired with cdb_close() on completion
@@ -222,11 +222,11 @@ extern int cdb_findnext(cdb_t *C);
 **   after successful cdb_find():
 **     copy len bytes of record data at cdb_dpos(C) into buffer
 **     buffer supplied by caller is at least len bytes
-**     if (len > C->dlen), only dlen bytes copied into buffer 
+**     if (len > C->dlen), only dlen bytes copied into buffer
 **
 **   return:
 **     0 : success
-**    -1 : error, errno set 
+**    -1 : error, errno set
 */
 extern int cdb_get(cdb_t *C, uchar_t *buffer, size_t len);
 
@@ -295,7 +295,7 @@ extern int cdb_read(cdb_t *C, uchar_t *buf, size_t len, uint32_t offset);
 **   a low-level operation to provide arbitrary access into an cdb
 **   copy into dynbuf appends from D->buf[D->p]
 **   (dynbuf grown as necessary)
-**    
+**
 **   return:
 **     0 : success
 **    -1 : error, errno set

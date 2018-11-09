@@ -28,14 +28,14 @@ new_packet_read(int fd, struct packet *k)
     }
 
     if(r < 3){
-        /* protocol error: */ 
+        /* protocol error: */
         errno = EPROTO;
         return -1;
     }
 
     len = (size_t)buf[2];
     if(r != (ssize_t)(len + 3)){
-        /* length mismatch (protocol error or short read): */ 
+        /* length mismatch (protocol error or short read): */
         errno = EPROTO;
         return -1;
     }
@@ -59,7 +59,7 @@ packet_read(int fd, void *packet, size_t n)
        r = read(fd, packet, n);
    }while((r == -1) && (errno == EINTR));
 
-   return r;   
+   return r;
 }
 
 

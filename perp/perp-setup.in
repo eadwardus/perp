@@ -17,7 +17,7 @@ _INITTAB=/etc/inittab
 _RCLOCAL=/etc/rc.local
 
 _mesg() {
-  echo "${_PROG}(${_PID}): $1" >/dev/stderr  
+  echo "${_PROG}(${_PID}): $1" >/dev/stderr
 }
 
 _fail() {
@@ -176,7 +176,7 @@ if test -f ${_INITTAB} ; then
       _mesg "perpboot entry already found in ${_INITTAB}"
       _done
   else
-      rm -f ${_INITTAB}.new 
+      rm -f ${_INITTAB}.new
       cat ${_INITTAB} - > ${_INITTAB}.new << %%
 
 ## perp:
@@ -199,7 +199,7 @@ if test -f ${_RCLOCAL} ; then
       _mesg "perpboot entry already found in ${_RCLOCAL}"
       _done
   else
-      rm -f ${_RCLOCAL}.new 
+      rm -f ${_RCLOCAL}.new
       cat ${_RCLOCAL} - > ${_RCLOCAL}.new << %%
 
 ## perp:

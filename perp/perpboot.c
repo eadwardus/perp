@@ -158,7 +158,7 @@ setup(void)
 
   sig_ignore(SIGPIPE);
   return;
-}    
+}
 
 
 static
@@ -207,7 +207,7 @@ child_exec(int which)
           sleep(2);
       }
   }
-      
+
   /* child (or, if not opt_super, execing into deux[1]): */
   if(pid == 0){
       int            fd, fd_max;
@@ -327,7 +327,7 @@ main_loop(void)
   if(deux[1].pid){
       /* harvest deux[1]: */
       waitpid(deux[1].pid, NULL, 0);
-  } 
+  }
   if(deux[0].pid){
       /* logger should exit on eof: */
       close(my_logpipe[1]);
@@ -363,7 +363,7 @@ main(int argc, char *argv[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

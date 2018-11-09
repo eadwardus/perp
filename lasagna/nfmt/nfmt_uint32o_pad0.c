@@ -22,10 +22,10 @@ nfmt_uint32o_pad0(char *s, uint32_t n, size_t w)
       ++s;
       ++len;
   }
-  
+
   s[nfmt_uint32o_(s, n)] = '\0';
 
   return s0;
 }
-          
+
 /* eof: nfmt_uint32_pad0o.c */

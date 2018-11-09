@@ -156,7 +156,7 @@ main(int argc, char *argv[])
   /* uptime compared to now: */
   tain_now(&now);
 
-  /* status query packet: */ 
+  /* status query packet: */
   upak_pack(pkt_data(pkt), "LL", (uint64_t)st.st_dev, (uint64_t)st.st_ino);
 
   if(pkt_write(fd_conn, pkt, 0) == -1){

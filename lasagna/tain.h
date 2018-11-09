@@ -149,7 +149,7 @@ extern tain_t * tain_unpack(tain_t *t, const uchar_t *buf);
 **   convert t into a nul-terminated hexadecimal string in s
 **   return s
 **   note: caller required to supply s of at least TAIN_HEXSTR_SIZE
-**   
+**
 */
 extern char * tain_packhex(char *s, const tain_t *t);
 

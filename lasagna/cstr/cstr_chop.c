@@ -15,8 +15,8 @@ cstr_chop(char *s)
   if(sN > s) --sN;
 
   if(*sN == '\n') *sN = '\0';
-  
-  return s;    
+
+  return s;
 }
 
 /* eof: cstr_chop.c */

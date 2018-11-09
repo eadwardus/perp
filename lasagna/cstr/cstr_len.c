@@ -21,4 +21,4 @@ cstr_len(const char *s)
   return (p - s);
 }
 
-/* eof (cstr_len.c) */ 
+/* eof (cstr_len.c) */

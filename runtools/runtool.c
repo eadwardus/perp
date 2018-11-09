@@ -117,7 +117,7 @@ do_setlock(const char *arg, pid_t pid)
   }
 
   fd = pidlock_set(lockfile, pid, (block ? PIDLOCK_WAIT : PIDLOCK_NOW));
- 
+
   if(fd == -1){
       fatal_syserr("unable to acquire lock on", lockfile);
   }
@@ -172,9 +172,9 @@ do_argfile(const char *optc, const char *argfile)
       fatal_syserr("unable to open file for option -", optc, " ", argfile);
   }
 
-  ioq_init(&q, fd, qbuf, sizeof qbuf, &read); 
+  ioq_init(&q, fd, qbuf, sizeof qbuf, &read);
 
-  while(!eof){ 
+  while(!eof){
       /* recycle any allocated dynstr: */
       dynstr_CLEAR(&L);
 
@@ -193,7 +193,7 @@ do_argfile(const char *optc, const char *argfile)
           /* else:
           ** eof was encountered after partial line read
           ** (last line not terminated with '\n')
-          ** proceed through the end of this loop 
+          ** proceed through the end of this loop
           */
       }
 
@@ -274,9 +274,9 @@ do_envfile(const char *optc, const char *arg)
       fatal_syserr("failure opening file for option -", optc, ": ", arg);
   }
 
-  ioq_init(&q, fd, qbuf, sizeof qbuf, &read); 
+  ioq_init(&q, fd, qbuf, sizeof qbuf, &read);
 
-  while(!eof){ 
+  while(!eof){
       /* recycle any allocated dynstr: */
       dynstr_CLEAR(&L);
 
@@ -295,7 +295,7 @@ do_envfile(const char *optc, const char *arg)
           /* else:
           ** eof was encountered after partial line read
           ** (last line not terminated with '\n')
-          ** proceed through the end of this loop 
+          ** proceed through the end of this loop
           */
       }
 
@@ -337,7 +337,7 @@ do_envfile(const char *optc, const char *arg)
       }
 
   }
- 
+
   /* success: */
   if(fd) close(fd);
   return;
@@ -472,13 +472,13 @@ do_envuid(const char *user)
   err = newenv_set("GID", nfmt_uint32(nfmt, (uint32_t)pw->pw_gid));
   if(err){
       fatal_syserr("failure allocating new environment");
-  }    
+  }
   err = newenv_set("UID", nfmt_uint32(nfmt, (uint32_t)pw->pw_uid));
   if(err){
       fatal_syserr("failure allocating new environment");
-  }    
+  }
 
-  return; 
+  return;
 }
 
 
@@ -495,7 +495,7 @@ runlimit_set(const char *rdef, const char *arg)
   struct rlimit  rlim;
   uint32_t       u;
   const char    *z;
-  
+
   r = rlimit_lookup(rdef);
   if(r == -1){
       warning("resource limit ", rdef, " not supported on this system");
@@ -573,7 +573,7 @@ do_runlimit(const char *arg_rlimit)
       }
       if(*arg == ':') ++arg;
   }
-          
+
   return;
 }
 
@@ -614,9 +614,9 @@ do_setuid(const char *user)
 
   if(setuid(uid) == -1){
       fatal_syserr("failure setuid() for setuid option -u: ", user);
-  } 
+  }
 
-  return; 
+  return;
 }
 
 
@@ -767,7 +767,7 @@ do_fdset(const char *arg_fdset)
       arg += tok;
       if(*arg == ':') ++arg;
   }
-          
+
   return;
 }
 
@@ -862,7 +862,7 @@ do_sleep(const char *arg)
       sleep(secs);
 
   sig_uncatch(SIGALRM);
-  errno = 0; 
+  errno = 0;
 
   return;
 }
@@ -930,7 +930,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 
@@ -952,7 +952,7 @@ main(int argc, char *argv[], char *envp[])
       /* set argv[0]: */
       arglist_add((arg_alias ? arg_alias : prog));
       ++argv;
- 
+
       if(opt_arginsert){
           while(*argv != NULL){
               arglist_add(*argv);
@@ -1040,7 +1040,7 @@ main(int argc, char *argv[], char *envp[])
      (arg_argfile ? (char **)dynstuf_STUF(&arglist) : argv),
      arg_search,
      (opt_envmerge ? envp : NULL));
-     
+
   /* uh oh: */
   fatal_syserr("unable to run ", argv[0]);
 

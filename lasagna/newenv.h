@@ -39,7 +39,7 @@ int newenv_set(const char *name, const char *value);
 **   return
 **     on success, no return
 **     on failure, -1 and errno set
-*/ 
+*/
 extern
 int newenv_run(char * const argv[], char * const envp[]);
 
@@ -60,7 +60,7 @@ int newenv_run(char * const argv[], char * const envp[]);
 **   where new_envp is the result of merging any envp with newenv_set()
 **
 **   if search is non-NULL, it is taken as a PATH-like string for finding prog
-**   (if search is non-NULL, the environment PATH is not searched) 
+**   (if search is non-NULL, the environment PATH is not searched)
 **
 **  returns
 **    on success, no return

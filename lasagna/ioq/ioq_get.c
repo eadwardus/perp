@@ -16,14 +16,14 @@
 
 /*
 ** diagram internal workings of ioq with read() operations
-** 
+**
 **            0
 ** start:    |....................|
 **            p                   n
 **           buffer empty
 **           p = 0
 **           n = sizeof(b), ie 20
-** 
+**
 **            0
 ** feed:     |xxxxxxxxxxxxxxxxxxxx|
 **            n                   p
@@ -31,28 +31,28 @@
 **           r = 20 bytes
 **           p = 20, ie &b+20
 **           n -= r, ie 0
-** 
+**
 **            0
 ** get 5:    |.....xxxxxxxxxxxxxxx|
 **                 n         p
 **           r = 5 bytes copied out
 **           p -= 5, ie 15 (and 15 bytes remaining)
 **           n += 5, ie 5
-** 
+**
 **            0
 ** get 12:   |.................xxx|
-**               p             n  
+**               p             n
 **           r = 12 bytes copied out
 **           p -= 12, ie 3 (and 3 bytes remaining)
 **           n += 12, ie 17
-** 
+**
 **            0
 ** get 5:    |....................|
-**            p                   n 
+**            p                   n
 **           r = 3 bytes copied out (of 5 requested)
 **           p -= 3, ie 0 (and 0 bytes remaining)
 **           n += 3, ie 20
-** 
+**
 ** internal buffer is now empty
 ** the next get operation will call feed() to refill it
 **
@@ -60,7 +60,7 @@
 **   that is, with a short read() during an ioq_feed(), the data
 **   read will be repositioned so that it ends at the end of the
 **   buffer
-*/           
+*/
 
 /* internal declarations: */
 static ssize_t read_once(int fd, void *buf, size_t to_read, ssize_t (*op)());
@@ -127,14 +127,14 @@ ioq_extract(ioq_t *ioq, void *data, size_t len)
 **   call may satisfy less than len bytes requested
 **   this does not indicate a "short" read()
 **   only what current internal state of ioq could supply
-*/ 
+*/
 ssize_t
 ioq_get(ioq_t *ioq, uchar_t *data, size_t len)
 {
   ssize_t r;
 
   if(ioq->p > 0){
-      /* internal buffer not empty: 
+      /* internal buffer not empty:
       **   extract at least what is available
       */
       return ioq_extract(ioq, data, len);
@@ -150,7 +150,7 @@ ioq_get(ioq_t *ioq, uchar_t *data, size_t len)
 
   /* caller wants less than internal buffer size:
   **   feed ioq to fill internal buffer
-  **   extract requested 
+  **   extract requested
   */
   r = ioq_feed(ioq);
   if(r <= 0){

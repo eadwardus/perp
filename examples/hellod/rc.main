@@ -15,7 +15,7 @@ start() {
     IP=127.0.0.1
     ## otherwise, to go "public":
     #IP=0
-    
+
     echo "*** ${SVNAME}: starting hellod..."
     echo "*** >> using port: ${PORT}"
     exec \

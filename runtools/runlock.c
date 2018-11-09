@@ -70,7 +70,7 @@ main(int argc, char *argv[], char *envp[])
   int          opt_check = 0;
   int          opt_checkquiet = 0;
   int          fd;
- 
+
   progname = nextopt_progname(&nopt);
   while((opt = nextopt(&nopt))){
       char optc[2] = {nopt.opt_got, '\0'};
@@ -91,7 +91,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 
@@ -112,7 +112,7 @@ main(int argc, char *argv[], char *envp[])
   if(prog == NULL){
       fatal_usage("missing required argument(s)");
   }
-  ++argv; 
+  ++argv;
 
   fd = pidlock_set(lockfile,
                    (opt_pid ? getpid() : 0),
@@ -125,7 +125,7 @@ main(int argc, char *argv[], char *envp[])
   }
 
   execvx(prog, argv, envp, NULL);
-  fatal_syserr("unable to run ", prog); 
+  fatal_syserr("unable to run ", prog);
 
   /* not reached: */
   return 0;

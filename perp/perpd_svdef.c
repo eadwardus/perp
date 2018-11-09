@@ -131,7 +131,7 @@ perpd_svdef_activate(struct svdef *svdef, const char *svdir, const struct stat *
       }
       fd_cloexec(svdef->logpipe[0]);
       fd_cloexec(svdef->logpipe[1]);
-  } 
+  }
 
   /*
   ** from here on, the service is considered activated
@@ -156,7 +156,7 @@ perpd_svdef_activate(struct svdef *svdef, const char *svdir, const struct stat *
   } else {
       svdef->svpair[SUBSV_MAIN].bitflags |= SUBSV_FLAG_WANTDOWN;
   }
- 
+
   return 0;
 }
 
@@ -207,7 +207,7 @@ perpd_svdef_checkfail(struct svdef *svdef)
   /* XXX, bail here if log is failing? */
 
   /* main: */
-  subsv = &svdef->svpair[SUBSV_MAIN];  
+  subsv = &svdef->svpair[SUBSV_MAIN];
   if(subsv->bitflags & SUBSV_FLAG_FAILING){
       target = (subsv->bitflags & SUBSV_FLAG_ISRESET) ? SVRUN_RESET : SVRUN_START;
       perpd_svdef_run(svdef, SUBSV_MAIN, target);
@@ -495,7 +495,7 @@ perpd_svdef_run(struct svdef *svdef, int which, int target)
   /* set timestamps and respawn governor: */
   tain_assign(&subsv->when, &now);
   if(target == SVRUN_START){
-      /* when_ok = now + 1sec + wait: */ 
+      /* when_ok = now + 1sec + wait: */
       tain_LOAD(&when_ok, 1, 0);
       tain_plus(&when_ok, &now, &when_ok);
       tain_plus(&when_ok, &when_ok, &towait);

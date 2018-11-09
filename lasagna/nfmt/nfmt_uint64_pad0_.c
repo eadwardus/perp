@@ -39,6 +39,6 @@ nfmt_uint64_pad0_(char *s, uint64_t n, size_t w)
 
   return len;
 }
-          
+
 
 /* eof: nfmt_uint64_pad0_.c */

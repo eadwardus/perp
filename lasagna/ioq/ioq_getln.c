@@ -46,7 +46,7 @@ ioq_getln(ioq_t *q, dynstr_t *S)
           /* dynstr malloc failure: */
           return -1;
       }
-    
+
       ioq_SEEK(q, n);
   }
 

@@ -54,7 +54,7 @@ main(int argc, char *argv[])
           }
           /* fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 
@@ -71,7 +71,7 @@ main(int argc, char *argv[])
           continue;
       }
       getrlimit(r, &rlim);
-      ioq_vputs(ioq1, resource, "\t", rlimit_mesg(r), ": "); 
+      ioq_vputs(ioq1, resource, "\t", rlimit_mesg(r), ": ");
       if(rlim.rlim_cur == RLIM_INFINITY){
           ioq_vputs(ioq1, "unlimited\n");
       } else {

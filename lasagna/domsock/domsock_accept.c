@@ -26,7 +26,7 @@ domsock_accept(int s)
   struct sockaddr_un  connaddr;
   socklen_t           connlen;
 
-  connlen = sizeof(connaddr); 
+  connlen = sizeof(connaddr);
   return accept(s, (struct sockaddr *)&connaddr, &connlen);
 }
 

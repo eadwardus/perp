@@ -17,7 +17,7 @@ dynstr_copy(dynstr_t *to, dynstr_t *from)
     }
     to->n = cstr_copy(to->s, from->s);
 
-    return 0; 
+    return 0;
 }
 
 /* eof: dynstr_copy.c */

@@ -155,7 +155,7 @@ setup(void)
 
   sig_ignore(SIGPIPE);
   return;
-}    
+}
 
 
 static
@@ -177,7 +177,7 @@ do_trap(int signo)
   trap_argv[4] = nfmt_uint32(fmt_signo, signo);
   trap_argv[5] = (char *)sysstr_signal(signo);
   /* */
-  trap_argv[6] = NULL; 
+  trap_argv[6] = NULL;
 
   /* discard signal if no child:
   **   note: the kill() test may be ineffective
@@ -375,7 +375,7 @@ main(int argc, char *argv[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

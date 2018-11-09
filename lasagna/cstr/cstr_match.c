@@ -106,7 +106,7 @@ cstr_match(const char *pattern, const char *string)
   ** reached to end (nul) of pattern?
   **   yes: match
   **   no:  no match
-  */ 
+  */
   return (*pattern == '\0') ? 1 : 0;
 }
 

@@ -20,7 +20,7 @@
 **   if dest is non-NULL:
 **       encode src of length len into dest using encoding vector vec
 **       return number of bytes written into dest
-**       caller responsible for providing dest buffer of sufficient size 
+**       caller responsible for providing dest buffer of sufficient size
 **   vec:
 **       caller supplies an encoding vector of 65 characters
 **       vec[0 .. 63] are base 64 encoding characters

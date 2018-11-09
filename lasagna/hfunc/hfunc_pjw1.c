@@ -14,7 +14,7 @@
 ** attributed to P.J. Weinberger
 ** numerous adaptations
 ** see: Compilers:..., Aho/Sethi/Ullman
-*/ 
+*/
 
 /* hash function: */
 uint32_t

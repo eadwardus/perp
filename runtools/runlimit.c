@@ -1,5 +1,5 @@
 /* runlimit.c
-** exec prog with resource limits 
+** exec prog with resource limits
 ** (update/replace djb softlimit facility)
 ** wcm, 2009.09.08 - 2013.01.07
 ** ===
@@ -190,7 +190,7 @@ runlimit_setup_ndx(int ndx, const char *arg, const char *source)
      /* skipping on previous setup: */
      return;
   }
- 
+
   if((arg == NULL) || (arg[0] == '\0')){
       fatal_usage("NULL or empty argument for resource ", name,
                   " found in ", source);
@@ -262,9 +262,9 @@ do_file(const char *rlimfile)
       }
   }
 
-  ioq_init(&q, fd, qbuf, sizeof qbuf, &read); 
+  ioq_init(&q, fd, qbuf, sizeof qbuf, &read);
 
-  while(!eof){ 
+  while(!eof){
       /* recycle any allocated dynstr: */
       dynstr_CLEAR(&L);
 
@@ -284,7 +284,7 @@ do_file(const char *rlimfile)
           /* else:
           ** eof was encountered after partial line read
           ** (last line not terminated with '\n')
-          ** proceed through the end of this loop 
+          ** proceed through the end of this loop
           */
       }
 
@@ -328,7 +328,7 @@ do_file(const char *rlimfile)
       /* else: */
       runlimit_setup_ndx(ndx, val, source);
   }
- 
+
   /* success: */
   if(fd) close(fd);
   return;
@@ -345,13 +345,13 @@ do_environment(void)
 {
   char  *val;
   int    i;
- 
+
   for(i = 0; runlimits[i].name != NULL; ++i){
       val = getenv(runlimits[i].name);
       if(val != NULL){
           runlimit_setup_ndx(i, val, "environment");
       }
-  } 
+  }
 
   return;
 }
@@ -425,7 +425,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* else fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

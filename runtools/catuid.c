@@ -40,7 +40,7 @@ main(int argc, char *argv[])
           }
           /* fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

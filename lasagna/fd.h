@@ -35,7 +35,7 @@ extern int fd_blocking(int fd);
 
 /* fd_dupe()
 **   duplicate from onto to
-**   
+**
 **   return:
 **      0  : success (the file descriptor to now points to from)
 **     -1  : failure (errno set)

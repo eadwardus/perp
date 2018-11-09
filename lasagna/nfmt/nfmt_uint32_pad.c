@@ -21,10 +21,10 @@ nfmt_uint32_pad(char *s, uint32_t n, size_t w)
       ++s;
       ++len;
   }
-  
+
   s[nfmt_uint32_(s, n)] = '\0';
 
   return s0;
 }
-          
+
 /* eof: nfmt_uint32_pad.c */

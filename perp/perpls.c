@@ -141,7 +141,7 @@ struct svstat {
     uint64_t     uptime_log;
     int          sys_errno;
     const char  *errmsg;
-}; 
+};
 
 
 
@@ -182,7 +182,7 @@ svstat_init(struct svstat *svstat, const char *svdir)
   struct svstat *S = svstat;
   int            new = 0;
   char          *panel = NULL;
-  char          *name = NULL;    
+  char          *name = NULL;
 
   if(S == NULL){
       S = (struct svstat *)malloc(sizeof(struct svstat));
@@ -356,7 +356,7 @@ svstat_unpack(struct svstat *S, tain_t *now)
   if(!S->has_log)
       return;
 
-  /* log: */  
+  /* log: */
   S->pid_log = pid = upak32_unpack(&buf[48]);
   tain_unpack(&when, &buf[52]);
   S->uptime_log = uptime = tain_uptime(now, &when);
@@ -478,7 +478,7 @@ captab_init(const char *db)
         } else {
             /* fill with default attribute: */
             cstr_copy(captab[i].attr, captab[CAP_DF].attr);
-        }  
+        }
     }
 
     return;
@@ -510,7 +510,7 @@ captab_lookup(const char *db, const char *key, size_t *attr_len)
     d0 = db;
     while(*d0 != '\0'){
         size_t       k = 0;
-        const char  *d = d0;  
+        const char  *d = d0;
 
         while((*d != '\0') && (*d != '='))
             ++d;
@@ -724,7 +724,7 @@ main(int argc, char *argv[])
   /* initialize captab: */
   if(use_color){
       captab_init(cap_db);
-  } 
+  }
 
   /* display color capabilities and exit (undocumented): */
   if(use_color && opt_K){
@@ -827,8 +827,8 @@ main(int argc, char *argv[])
       svstat = (struct svstat *)dynstuf_get(svstuf, i);
       svstat_query(fd_conn, svstat);
       w = cstr_len(svstat->name);
-      if(w > width) width = w; 
-  }  
+      if(w > width) width = w;
+  }
 
   /* close fd_conn (ignore error): */
   close(fd_conn);

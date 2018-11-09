@@ -24,9 +24,9 @@ dynstr_putn(dynstr_t *S, const char *str, size_t n)
     }
     buf_copy(&S->s[S->n], str, grow);
     S->n += grow;
-    S->s[S->n] = '\0'; 
+    S->s[S->n] = '\0';
 
-    return 0; 
+    return 0;
 }
 
 /* eof: dynstr_putn.c */

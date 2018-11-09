@@ -33,7 +33,7 @@ main(int argc, char *argv[], char *envp[])
           }
           /* fallthrough: */
       default :
-          die_usage(); break; 
+          die_usage(); break;
       }
   }
 

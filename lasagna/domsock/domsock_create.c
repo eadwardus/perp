@@ -43,7 +43,7 @@ domsock_create(const char *path, mode_t mode)
   cstr_copy(sockaddr.sun_path, path);
   if(bind(s, (const struct sockaddr *)&sockaddr, sizeof(sockaddr)) == -1){
       goto FAIL;
-  } 
+  }
 
   if(mode != 0){
       umask_orig = umask(0);

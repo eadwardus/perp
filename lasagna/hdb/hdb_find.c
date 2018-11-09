@@ -21,7 +21,7 @@ static int hdb_hash_probe(struct hdb *H, uint32_t target);
 /* hdb_key_match()
 **   compare record key of klen at kpos
 **   to search key initialized in hdb_find()
-*/   
+*/
 static
 int
 hdb_key_match(struct hdb *H, const uchar_t *key, uint32_t klen, uint32_t kpos)
@@ -129,13 +129,13 @@ int
 hdb_find(struct hdb *H, const uchar_t *key, uint32_t klen)
 {
   uint32_t  hash, ntab, tslots, target;
- 
+
   /* constrain klen to 24-bit length: */
   if(klen > HDB_U24MAX){
       errno = ERANGE;
       return -1;
   }
- 
+
   /* search initialization: */
   H->key = (uchar_t *)key;
   H->klen = klen;
@@ -168,7 +168,7 @@ hdb_findnext(struct hdb *H)
     uint32_t  target = H->sN;
 
     /* advance target from last succesful find: */
-    ++target; 
+    ++target;
     if(target == H->tslots) target = 0;
     if(target == H->s0){
         /* back at original target; key not found: */

@@ -44,7 +44,7 @@ struct cdbmk {
   /* buffer for ioq: */
 #define  CDBMK_BUFSIZE  8192
   uchar_t                buf[CDBMK_BUFSIZE];
-};    
+};
 typedef struct cdbmk  cdbmk_t;
 
 

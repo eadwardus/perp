@@ -37,7 +37,7 @@ do_pid(int fd, pid_t pid)
     nfmt[n] = '\n';
     ++n;
     nfmt[n] = '\0';
-    
+
     do{
         e = write(fd, nfmt, n);
     }while((e == -1) && (errno == EINTR));

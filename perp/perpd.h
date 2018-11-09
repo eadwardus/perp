@@ -30,21 +30,21 @@
 
 
 /* map to source:
-** 
+**
 ** the perpd application is partitioned into 3 source files:
 **
 **   [] perpd.c:
 **      main() entry, option processing, initialization, signal handling,
 **      main event loop, definition directory scanning, and capturing
 **      terminated child processes
-** 
+**
 **   [] perpd_svdef.c:
 **      service activation, service initialization, service start/reset exec(),
 **      service deactivation ("cull")
-** 
+**
 **   [] perpd_conn.c:
 **      client connection routines, packet/protocol processing
-*/ 
+*/
 
 
 /*
@@ -199,14 +199,14 @@ extern int perpd_svdef_run(struct svdef *svdef, int which, int what);
 struct perpd_conn {
   int      connfd;  /* read/write socket for this client */
   tain_t   stamp;   /* tainstamp at connect */
-  uchar_t  state;   /* current state of connection, defined below: */ 
+  uchar_t  state;   /* current state of connection, defined below: */
 #define PERPD_CONN_CLOSED   0
 #define PERPD_CONN_READING  1
 #define PERPD_CONN_WRITING  2
   pkt_t    pkt;
   size_t   n;       /* current bytes read into pkt[] */
   size_t   w;       /* current bytes written out of pkt[] */
-}; 
+};
 
 /* perpd_conn subroutines (defined in perpd_conn.c): */
 extern void perpd_conn_reset(struct perpd_conn *client);

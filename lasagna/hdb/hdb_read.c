@@ -35,7 +35,7 @@ hdb_read(struct hdb *H, uchar_t *buf, size_t len, uint32_t offset)
       buf_copy(buf, H->map + offset, len);
       return 0;
   }
-      
+
   /* else read() from fd ... */
 
   if(lseek(fd, (off_t)offset, SEEK_SET) == -1){
@@ -59,7 +59,7 @@ hdb_read(struct hdb *H, uchar_t *buf, size_t len, uint32_t offset)
       }
   }
 
-  return 0;    
+  return 0;
 }
 
 /* eof (hdb_read.c) */

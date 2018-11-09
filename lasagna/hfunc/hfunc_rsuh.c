@@ -17,7 +17,7 @@
 **   p579, (Program 14.2)
 **
 ** uses pseudo-random multiplier sequence
-*/ 
+*/
 
 /* hash function: */
 uint32_t

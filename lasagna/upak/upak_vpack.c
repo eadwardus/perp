@@ -27,7 +27,7 @@ upak_vpack(uchar_t *buf, const char *fmt, va_list args)
   char      *p;
   uint16_t   u16;
   uint32_t   u32;
-  uint64_t   u64; 
+  uint64_t   u64;
 
   for(p = (char *)fmt; *p != '\0'; ++p){
       switch(*p){
@@ -64,7 +64,7 @@ upak_vpack(uchar_t *buf, const char *fmt, va_list args)
       }
   }
 
-  return (ssize_t)(b - buf);  
+  return (ssize_t)(b - buf);
 }
 
 

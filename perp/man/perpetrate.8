@@ -122,7 +122,7 @@ invoking its runscript with the same
 .I svname
 arguments as described above.
 .PP
-To avoid chronic service failures from looping too quickly, 
+To avoid chronic service failures from looping too quickly,
 .B perpetrate
 delays at least one second beyond the last ``start'' time
 before trying to restart a service.
@@ -273,7 +273,7 @@ it will continue to operate from this directory.
 .I CWD/.control/<hash_svdir>/
 Each
 .B perpetrate
-instance creates and maintains certain runtime control files in a directory 
+instance creates and maintains certain runtime control files in a directory
 that shadows the service directory under its supervision.
 The path to this shadow directory is based on a required directory named
 .I .control

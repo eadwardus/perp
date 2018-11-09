@@ -14,7 +14,7 @@ struct dynstr {
   char    *s;
   size_t   n;   /* current position (aka "length") */
   size_t   k;   /* current size allocated for s  */
-}; 
+};
 typedef struct dynstr  dynstr_t;
 
 /* dynstr_INIT()
@@ -32,7 +32,7 @@ typedef struct dynstr  dynstr_t;
 extern void dynstr_set(dynstr_t *S, char *s);
 
 /* constructor for malloc'ed dynstr: */
-extern dynstr_t * dynstr_new(void); 
+extern dynstr_t * dynstr_new(void);
 
 /* destructor for malloc'ed dynstr: */
 extern void dynstr_free(dynstr_t *);

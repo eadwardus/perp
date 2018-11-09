@@ -24,6 +24,6 @@ tain_packhex(char *s, const tain_t *t)
 
   return s;
 }
-  
+
 
 /* EOF (tain_packhex.c) */

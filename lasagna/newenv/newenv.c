@@ -44,7 +44,7 @@ memfail:
     if(dynstr_STR(&newvar) != NULL)
         free(dynstr_STR(&newvar));
     errno = ENOMEM;
-    return -1;    
+    return -1;
 }
 
 
@@ -116,7 +116,7 @@ newenv_run(char * const argv[], char * const envp[])
     return newenv_exec(argv[0], argv, NULL, envp);
 }
 
- 
+
 int
 newenv_exec(
   const char        *prog,
@@ -133,7 +133,7 @@ newenv_exec(
         errno = ENOMEM;
         return -1;
     }
-  
+
     err = execvx(prog, argv, (char * const *)ee, search);
     /* uh oh, exec() failure: */
     terrno = errno;
@@ -141,10 +141,10 @@ newenv_exec(
     ** free only ee
     ** (existing environ and allocated newenv will persist unchanged):
     */
-    free(ee); 
+    free(ee);
 
     errno = terrno;
-    return err; 
+    return err;
 }
 
 

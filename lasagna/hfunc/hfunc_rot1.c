@@ -20,7 +20,7 @@
 ** this implementation arbitrarily initializes h:
 **   phi * 2^32 =   2654435769
 **   closest prime: 2654435761  (hex: 0x9e3779b1)
-*/ 
+*/
 
 /* hash function: */
 uint32_t

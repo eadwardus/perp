@@ -63,7 +63,7 @@ main(int argc, char *argv[])
   for(row = 0; row < 32; ++row){
       printf("  ");
       for(col = 0; col < 8; ++col){
-          printf("  0x%x%s", upak32_unpack(b), i < 255 ? "," : ""); 
+          printf("  0x%x%s", upak32_unpack(b), i < 255 ? "," : "");
           b += 4;
           ++i;
       }

@@ -52,8 +52,8 @@ tx64_encode(char *dest, const char *src, size_t len, const char *vec, int flags)
     while(w % 4){
         dest[w] = vec[64];
         ++w;
-    }    
-        
+    }
+
     return w;
 }
 
