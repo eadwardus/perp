@@ -1,204 +1,153 @@
-/* runargs.c
-** exec prog with args read from file
-** wcm, 2009.09.08 - 2011.01.31
-** ===
-*/
-
-#include <unistd.h>
+/* See LICENSE file for copyright and license details. */
 #include <fcntl.h>
+#include <unistd.h>
 
-#include "cstr.h"
-#include "dynstr.h"
-#include "dynstuf.h"
-#include "execvx.h"
-#include "ioq.h"
-#include "nextopt.h"
+#include "lasagna.h"
+#include "runtools.h"
 
-#include "runtools_common.h"
-
-
-static const char *progname = NULL;
-static const char prog_usage[] = "[-hV] [-i] argfile program [args ...]";
-
-#define fatal_alloc() \
-  fatal(111, "allocation failure");
-
+#define fatal_alloc() fatal(111, "allocation failure");
 
 /* arglist in scope: */
 static dynstuf_t arglist = dynstuf_INIT();
 
-static void arglist_add(const char *arg);
-static void do_argfile(const char *argfile);
+static void
+usage(void)
+{
+	eputs("usage: ", getprogname(), " [-i] argfile progname [args ...]");
+	die(1);
+}
 
-
-static
-void
+static void
 arglist_add(const char *arg)
 {
-  char *newarg;
+	char *newarg;
 
-  /* NULL arg acceptable to terminate arglist: */
-  if(arg == NULL){
-      newarg = NULL;
-  } else {
-      newarg = cstr_dup(arg);
-      if(newarg == NULL){
-          fatal_alloc();
-      }
-  }
+	/* NULL arg acceptable to terminate arglist: */
+	newarg = NULL;
 
-  if(dynstuf_push(&arglist, newarg) == -1){
-      fatal_alloc();
-  }
+	if (arg)
+		if (!(newarg = cstr_dup(arg)))
+			fatal_alloc();
 
-  return;
+	if (dynstuf_push(&arglist, newarg) < 0)
+		fatal_alloc();
 }
 
 
-static
-void
+static void
 do_argfile(const char *argfile)
 {
-  int        fd;
-  int        eof = 0;
-  ioq_t      q;
-  uchar_t    qbuf[IOQ_BUFSIZE];
-  dynstr_t   L = dynstr_INIT();
-  char      *line = NULL;
-  int        r;
+	dynstr_t L;
+	ioq_t q;
+	int eof, fd, r;
+	char *line;
+	uchar_t qbuf[IOQ_BUFSIZE];
 
-  if(cstr_cmp(argfile, "-") == 0){
-      fd = 0;
-      argfile = "<stdin>";
-  } else {
-      fd = open(argfile, O_RDONLY | O_NONBLOCK);
-      if(fd == -1){
-          fatal_syserr("unable to open ", argfile);
-      }
-  }
+	if (!cstr_cmp(argfile, "-")) {
+		fd = 0;
+		argfile = "<stdin>";
+	} else {
+		if ((fd = open(argfile, O_RDONLY | O_NONBLOCK)) < 0)
+			fatal_syserr("unable to open", argfile);
+	}
 
-  ioq_init(&q, fd, qbuf, sizeof qbuf, &read);
+	ioq_init(&q, fd, qbuf, sizeof qbuf, &read);
 
-  while(!eof){
-      /* recycle any allocated dynstr: */
-      dynstr_CLEAR(&L);
+	eof  = 0;
+	L    = dynstr_INIT();
 
-      /* fetch next line: */
-      r = ioq_getln(&q, &L);
-      if(r == -1){
-          fatal_syserr("error reading ", argfile);
-      }
-      if(r == 0){
-          /* set terminal condition: */
-          ++eof;
-          if((dynstr_STR(&L) == NULL) || (dynstr_LEN(&L) == 0)){
-              /* all done: */
-              break;
-          }
-          /* else:
-          ** eof was encountered after partial line read
-          ** (last line not terminated with '\n')
-          ** proceed through the end of this loop
-          */
-      }
+	while (!eof) {
+		/* recycle any allocated dynstr: */
+		dynstr_CLEAR(&L);
 
-      /* work directly on string buffer: */
-      line = dynstr_STR(&L);
-      cstr_trim(line);
+		/* fetch next line: */
+		if ((r = ioq_getln(&q, &L)) < 0)
+			fatal_syserr("error reading ", argfile);
 
-      /* skip empty lines and comments: */
-      if((line[0] == '\0') || (line[0] == '#')){
-          continue;
-      }
+		if (!r) {
+			/* set terminal condition: */
+			eof++;
+			if (!(dynstr_STR(&L)) || !(dynstr_LEN(&L)))
+				break;
 
-      /* add this argument: */
-      arglist_add(line);
-  }
+			/* else:
+			 * eof was encountered after partial line read
+			 * (last line not terminated with '\n')
+			 * proceed through the end of this loop
+			 */
+		}
 
-  /* success: */
-  if(fd) close(fd);
-  return;
+		/* work directly on string buffer: */
+		line = dynstr_STR(&L);
+		cstr_trim(line);
+
+		/* skip empty lines and comments: */
+		if ((line[0] == '\0') || (line[0] == '#'))
+			continue;
+
+		/* add this argument: */
+		arglist_add(line);
+	}
+
+	/* success: */
+	if (fd)
+		close(fd);
 }
 
 
 int
-main(int argc, char * argv[], char * envp[])
+main(int argc, char *argv[], char *envp[])
 {
-  nextopt_t    nopt = nextopt_INIT(argc, argv, "hVi");
-  char         opt;
-  const char  *argfile = NULL;
-  const char  *prog = NULL;
-  int          opt_insert = 0;
+	int opt_insert;
+	const char *argfile, *prog;
 
-  progname = nextopt_progname(&nopt);
-  while((opt = nextopt(&nopt))){
-      char optc[2] = {nopt.opt_got, '\0'};
-      switch(opt){
-      case 'h': usage(); die(0); break;
-      case 'V': version(); die(0); break;
-      case 'i': opt_insert = 1; break;
-      case ':':
-          fatal_usage("missing argument for option -", optc);
-          break;
-      case '?':
-          if(nopt.opt_got != '?'){
-              fatal_usage("invalid option: -", optc);
-          }
-          /* else fallthrough: */
-      default :
-          die_usage(); break;
-      }
-  }
+	setprogname(argv[0]);
 
-  argc -= nopt.arg_ndx;
-  argv += nopt.arg_ndx;
+	opt_insert = 0;
 
-  if(argc < 2){
-      fatal_usage("missing required argument(s)");
-  }
-  argfile = argv[0];
-  ++argv;
-  prog = argv[0];
-  ++argv;
+	ARGBEGIN {
+	case 'i':
+		opt_insert = 1;
+		break;
+	default:
+		usage();
+	} ARGEND
 
-  /* set argv[0] of new arglist to prog: */
-  arglist_add(prog);
+	if (argc < 2)
+		fatal_usage("missing required argument(s)");
 
-  /*
-  ** "opt_insert"  :  prog args before argfile args
-  ** "!opt_insert" :  argfile args before prog args
-  **
-  ** "!opt_insert" (opt_insert == 0) is the default
-  */
-  if(opt_insert){
-      while(*argv != NULL){
-          arglist_add(*argv);
-          ++argv;
-      }
-  }
+	argfile = *argv++;
+	prog    = *argv++;
 
-  /* process argfile: */
-  do_argfile(argfile);
+	/* set argv[0] of new arglist to prog: */
+	arglist_add(prog);
 
-  if(!opt_insert){
-      while(*argv != NULL){
-          arglist_add(*argv);
-          ++argv;
-      }
-  }
+	/*
+	 * "opt_insert"  :  prog args before argfile args
+	 * "!opt_insert" :  argfile args before prog args
+	 *
+	 * "!opt_insert" (opt_insert == 0) is the default
+	 */
+	if (opt_insert)
+		for (; *argv; argv++)
+			arglist_add(*argv);
 
-  /* append NULL terminal to arglist: */
-  arglist_add(NULL);
+	/* process argfile: */
+	do_argfile(argfile);
 
-  /* execvx() provides shell-like path search for prog */
-  execvx(prog, (char **)dynstuf_STUF(&arglist), envp, NULL);
+	if (!opt_insert)
+		for (; *argv; argv++)
+			arglist_add(*argv);
 
-  /* uh oh: */
-  fatal_syserr("unable to run ", prog);
+	/* append NULL terminal to arglist: */
+	arglist_add(NULL);
 
-  /* not reached: */
-  return 0;
+	/* execvx() provides shell-like path search for prog */
+	execvx(prog, (char **) dynstuf_STUF(&arglist), envp, NULL);
+
+	/* uh oh: */
+	fatal_syserr("unable to run ", prog);
+
+	/* not reached: */
+	return 0;
 }
-
-
-/* eof: runargs.c */

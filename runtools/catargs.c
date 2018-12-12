@@ -1,27 +1,16 @@
-/* catargs.c
-** output argv in runargs format
-** wcm, 2009.09.08 - 2011.01.31
-** ===
-*/
+/* See LICENSE file for copyright and license details. */
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "ioq.h"
-#include "ioq_std.h"
+#include "lasagna.h"
 
 int
 main(int argc, char *argv[])
 {
-  (void)argc;
+	for (; *argv; argv++)
+		ioq_vputs(ioq1, *argv, "\n");
 
-  while(*argv){
-      ioq_vputs(ioq1, *argv, "\n");
-      ++argv;
-  }
-  ioq_flush(ioq1);
+	ioq_flush(ioq1);
 
-  return 0;
+	return 0;
 }
-
-
-/* eof: catargs.c */

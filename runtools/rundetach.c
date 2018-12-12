@@ -1,72 +1,49 @@
-/* rundetach.c
-** exec prog after detaching from controlling terminal
-** (ie, background execution in new session)
-** wcm, 2009.09.23 - 2011.01.31
-** ===
-*/
-#include <unistd.h>
+/* See LICENSE file for copyright and license details. */
 #include <sys/types.h>
 
-#include "execvx.h"
-#include "nextopt.h"
+#include <unistd.h>
 
-#include "runtools_common.h"
+#include "lasagna.h"
+#include "runtools.h"
 
-
-static const char *progname = NULL;
-static const char prog_usage[] = "[-hV] program [args ...]";
-
+static void
+usage(void)
+{
+	eputs("usage: ", getprogname(), " progname [args ...]");
+	die(1);
+}
 
 int
 main(int argc, char *argv[], char *envp[])
 {
-  nextopt_t  nopt = nextopt_INIT(argc, argv, "hV");
-  char       opt;
-  pid_t      pid;
+	pid_t pid;
 
-  progname = nextopt_progname(&nopt);
-  while((opt = nextopt(&nopt))){
-      char optc[2] = {nopt.opt_got, '\0'};
-      switch(opt){
-      case 'h': usage(); die(0); break;
-      case 'V': version(); die(0); break;
-      case ':':
-          fatal_usage("missing argument for option -", optc);
-          break;
-      case '?':
-          if(nopt.opt_got != '?'){
-              fatal_usage("invalid option: -", optc);
-          }
-          /* else fallthrough: */
-      default :
-          die_usage(); break;
-      }
-  }
+	setprogname(argv[0]);
 
-  argc -= nopt.arg_ndx;
-  argv += nopt.arg_ndx;
+	ARGBEGIN {
+	default:
+		usage();
+	} ARGEND
 
-  if(argc < 1){
-      fatal_usage("missing required program argument");
-  }
+	if (!argc)
+		fatal_usage("missing required program argument");
 
-  if((pid = fork()) == -1){
-      fatal_syserr("failure to detach");
-  }
-  if(pid != 0){
-      /* parent exits: */
-      _exit(0);
-  }
-  setsid();
+	if ((pid = fork()) < 0)
+		fatal_syserr("failure to detach");
 
-  /* execvx() provides path search for prog */
-  execvx(argv[0], argv, envp, NULL);
+	/* parent exits: */
+	if (pid)
+		_exit(0);
+	setsid();
 
-  /* uh oh: */
-  fatal_syserr("unable to run ", argv[0]);
+	/* execvx() provides path search for prog */
+	execvx(argv[0], argv, envp, NULL);
 
-  /* not reached: */
-  return 0;
+	/* uh oh: */
+	fatal_syserr("unable to run ", argv[0]);
+
+	/* not reached: */
+	return 0;
 }
 
 
